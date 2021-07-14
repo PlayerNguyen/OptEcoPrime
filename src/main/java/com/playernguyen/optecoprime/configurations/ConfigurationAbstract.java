@@ -1,6 +1,7 @@
 package com.playernguyen.optecoprime.configurations;
 
 import com.google.common.base.Preconditions;
+import com.osiris.dyml.DYModule;
 import com.osiris.dyml.DreamYaml;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
@@ -53,6 +54,18 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
                 .put(name.split("\\."))
                 .setDefValues(data.toString())
                 .setDefComments(comments);
+    }
+
+    /**
+     * Get a {@link DYModule} which was configured contains persisted data.
+     *
+     * @param modelType a module type
+     * @return a {@link DYModule} persisted data.
+     */
+    public DYModule get(T modelType) {
+        return this.dreamYaml
+                .get(modelType.getPath()
+                        .split("\\."));
     }
 
 }

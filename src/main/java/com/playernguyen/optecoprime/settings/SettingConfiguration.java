@@ -9,6 +9,9 @@ public class SettingConfiguration extends ConfigurationAbstract<SettingConfigura
     public static final String PARENT_FOLDER_NAME = "Settings";
 
     public SettingConfiguration(Plugin plugin) throws Exception {
-        super(plugin, FILE_NAME, SettingConfigurationModel.class, PARENT_FOLDER_NAME);
+        super(plugin,
+                FILE_NAME,
+                SettingConfigurationModel.class,
+                PARENT_FOLDER_NAME);
     }
 }
