@@ -26,14 +26,21 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'junit:junit:4.13.1'
     compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     testCompile 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
-    implementation 'com.github.Osiris-Team:Dream-Yaml:6.3'
-    implementation 'com.github.PlayerNguyen:pndb:1.0.3-SNAPSHOT'
+    compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
+    compile 'com.github.PlayerNguyen:pndb:1.0.3-SNAPSHOT'
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }

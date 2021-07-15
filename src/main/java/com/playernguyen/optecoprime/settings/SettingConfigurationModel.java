@@ -8,7 +8,11 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
             "Do not touch unless you know what you are doing"
     ),
     DATABASE_TYPE("Database.DatabaseType", "sqlite", "A type of database system that plugin use"),
+    DATABASE_TABLE_PREFIX("Database.TablePrefix", "opteco", "Prefix name of database, i.e: prefix_users, prefix_transactions..."),
     DATABASE_SQLITE_FILE_NAME("Database.SQLite.FileName", "data.sqlite", "A SQLite file name which contains data"),
+
+    USER_BEGINNING_POINT("User.BeginningPoint", 0.0, "The beginning point when new player first join the server")
+
     ;
 
     private final String path;

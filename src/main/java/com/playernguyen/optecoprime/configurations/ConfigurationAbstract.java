@@ -20,18 +20,18 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
         // Setup plugin global folder
         Preconditions.checkState(
                 plugin.getDataFolder().exists()
-                        && plugin.getDataFolder().mkdir()
+                        || plugin.getDataFolder().mkdir()
         );
 
         // Set a current base for plugin
         File parent = parentFolder == null
                 ? plugin.getDataFolder()
                 : new File(plugin.getDataFolder(), parentFolder);
-        Preconditions.checkState(parent.exists() && parent.mkdir());
+        Preconditions.checkState(parent.exists() || parent.mkdir());
         File configFile = new File(parent, fileName);
         // Set the dream yaml object reference to parent
         this.dreamYaml = new DreamYaml(configFile);
-
+        this.dreamYaml.load();
         // Initialize configuration from model
         Preconditions.checkState(modelClass.isEnum());
 
@@ -42,6 +42,7 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
                     item.getComments()
             );
         }
+        this.dreamYaml.saveAndLoad();
     }
 
     public DreamYaml getDreamYaml() {
@@ -53,7 +54,7 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
         this.dreamYaml
                 .put(name.split("\\."))
                 .setDefValues(data.toString())
-                .setDefComments(comments);
+                .setComments(comments);
     }
 
     /**
