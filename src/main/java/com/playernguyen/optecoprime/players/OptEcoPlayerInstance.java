@@ -2,18 +2,32 @@ package com.playernguyen.optecoprime.players;
 
 import java.util.UUID;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Default instance of player persist player data
  */
 public class OptEcoPlayerInstance implements OptEcoPlayer {
     private final UUID uniqueId;
-    private final double balance;
-    private final String username;
+    // private final String username;
+    private long lastUpdate;
+    private double balance;
 
-    public OptEcoPlayerInstance(UUID uniqueId, double balance, String username) {
+    public OptEcoPlayerInstance(UUID uniqueId, double balance) {
         this.uniqueId = uniqueId;
         this.balance = balance;
-        this.username = username;
+        this.lastUpdate = System.currentTimeMillis();
+    }
+
+    public OptEcoPlayerInstance(@NotNull OptEcoPlayer player) {
+        this.uniqueId = player.getUniqueId();
+        this.balance = player.getBalance();
+        this.lastUpdate = System.currentTimeMillis();
+    }
+
+    @Override
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -27,7 +41,12 @@ public class OptEcoPlayerInstance implements OptEcoPlayer {
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public long getLastUpdate() {
+        return lastUpdate;
+    }
+
+    @Override
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

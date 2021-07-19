@@ -22,10 +22,24 @@ public interface OptEcoPlayer {
     double getBalance();
 
     /**
-     * Representing Minecraft username, for developer who want to build no-uuid API
+     * Set new balance of player.
      *
-     * @return a stored username provid
+     * @param balance a new balance of that player.
      */
-    String getUsername();
+    void setBalance(double balance);
+
+    /**
+     * A last update of this player object, to check a player
+     *  object is out-of-date or not
+     *
+     * @return a last update long
+     */
+    long getLastUpdate();
+
+    /**
+     * Set a new last update
+     * @param lastUpdate
+     */
+    void setLastUpdate(long lastUpdate);
 
 }

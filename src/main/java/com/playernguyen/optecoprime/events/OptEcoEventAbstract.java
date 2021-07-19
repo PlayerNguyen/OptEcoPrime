@@ -6,7 +6,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class OptEcoModifyEvent extends Event implements Cancellable {
+public abstract class OptEcoEventAbstract extends Event implements Cancellable {
 
     private final OptEcoPrime plugin;
     private boolean cancelled = false;
@@ -17,7 +17,7 @@ public class OptEcoModifyEvent extends Event implements Cancellable {
      *
      * @param plugin an OptEcoPrime plugin
      */
-    public OptEcoModifyEvent(OptEcoPrime plugin) {
+    public OptEcoEventAbstract(OptEcoPrime plugin) {
         this.plugin = plugin;
     }
 
@@ -66,7 +66,7 @@ public class OptEcoModifyEvent extends Event implements Cancellable {
     }
 
     /**
-     * An instance of OptEco plugin, to get some methods to execute.¬
+     * An instance of OptEco plugin, to get some methods to execute.
      *
      * @return OptEco plugin
      */

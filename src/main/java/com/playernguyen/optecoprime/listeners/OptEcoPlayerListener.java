@@ -22,24 +22,20 @@ public class OptEcoPlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) throws Exception {
         // Trying to get player's data from database
         Player joinedPlayer = event.getPlayer();
-        OptEcoPlayer retrievePlayer = plugin
-                .getDatabaseUserController()
-                .getPlayerByUUID(joinedPlayer.getUniqueId())
+        OptEcoPlayer retrievePlayer = plugin.getDatabaseUserController().getPlayerByUUID(joinedPlayer.getUniqueId())
                 .orElse(null);
 
         // If player has not found on server, initialize a new player
         if (retrievePlayer == null) {
-            retrievePlayer = new OptEcoPlayerInstance(
-                    joinedPlayer.getUniqueId(),
-                    plugin.getSettingConfiguration().get(SettingConfigurationModel.USER_BEGINNING_POINT).asDouble(),
-                    joinedPlayer.getName()
-            );
+            retrievePlayer = new OptEcoPlayerInstance(joinedPlayer.getUniqueId(),
+                    plugin.getSettingConfiguration().get(SettingConfigurationModel.USER_BEGINNING_POINT).asDouble());
 
-            plugin.getDatabaseUserController().addPlayer(retrievePlayer);
+            // Add new player into database
+            plugin.getDatabaseUserController().addPlayer(retrievePlayer.getUniqueId(), retrievePlayer.getBalance());
         }
 
         // Then, put it to the cache storage
-        plugin.getUserTanker().add(retrievePlayer);
+        plugin.getPlayerManager().add(retrievePlayer);
     }
 
     @EventHandler
@@ -47,8 +43,7 @@ public class OptEcoPlayerListener implements Listener {
         Player disconnectingPlayer = event.getPlayer();
 
         // Remove a cache storage
-        plugin.getUserTanker().removeIf(player ->
-                player.getUniqueId().equals(disconnectingPlayer.getUniqueId()));
+        plugin.getPlayerManager().remove(disconnectingPlayer.getUniqueId());
 
     }
 

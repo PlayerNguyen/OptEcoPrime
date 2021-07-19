@@ -27,8 +27,10 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.1'
+
     compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
-    testCompile 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+    testImplementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
     compile 'com.github.PlayerNguyen:pndb:1.0.3-SNAPSHOT'
 }
@@ -45,17 +47,14 @@ jar {
     }
 }
 
-task copyBuildJar() {
+task copyDoc() {
     doLast {
         copy {
-            from fileTree('build/libs')
-            into 'server/plugins'
+            from 'build/docs'
+            into 'docs/'.concat(version)
         }
     }
 }
 
-task buildAndRunServer {
-    dependsOn([clean, jar, copyBuildJar])
-}
-
-jar.dependsOn copyBuildJar
+// jar.dependsOn javadoc
+// jar.dependsOn copyDoc

@@ -1,0 +1,5 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "editor.tabSize": 4 ,
+  "editor.defaultFormatter": "redhat.java"
+}
