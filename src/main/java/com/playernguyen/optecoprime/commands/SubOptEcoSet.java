@@ -11,6 +11,7 @@ import com.playernguyen.optecoprime.commands.core.CommandResult;
 import com.playernguyen.optecoprime.commands.core.CommandSub;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.utils.StringUtil;
+import com.playernguyen.optecoprime.utils.NumberUtil.NumberFilter;
 import com.playernguyen.optecoprime.utils.SenderUtil.Teller;
 
 import org.bukkit.Bukkit;
@@ -42,6 +43,7 @@ public class SubOptEcoSet extends CommandSub {
 
         // Missing arguments
         if (params.size() < 2) {
+            Teller.init(sender).next(toGuidelineText());
             return CommandResult.MISSING_ARGUMENTS;
         }
 
@@ -54,38 +56,38 @@ public class SubOptEcoSet extends CommandSub {
 
                 // Send player not found
                 if (alternativePlayer == null) {
-                    plugin.getLanguageConfiguration().sendWithPrefix(sender,
-                            LanguageConfigurationModel.COMMAND_RESPONSE_PLAYER_NOT_FOUND);
+                    Teller.init(sender)
+                            .next(plugin.getLanguageConfiguration()
+                                    .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_PLAYER_NOT_FOUND)
+                                    .change("%target%", params.get(0)).toString());
 
                     return CommandResult.NOTHING;
                 }
 
                 currentUUID = alternativePlayer.getUniqueId();
-            } else {
+            } else
                 currentUUID = UUID.fromString(params.get(0));
+
+            NumberFilter numberFilter = new NumberFilter(params.get(1));
+
+            // Number invalid or not a number
+            if (!numberFilter.isNumber()) {
+                plugin.getLanguageConfiguration().sendWithPrefix(sender,
+                        LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
+                return CommandResult.NOTHING;
             }
 
-            // Set a current uuid
-            double amount = Double.parseDouble(params.get(1));
+            double amount = numberFilter.asNumber();
+            // Set a balance to player
             plugin.getPlayerManager().setPlayerBalance(currentUUID, amount);
 
             // Send message to sender
             Teller.init(sender)
                     .next(plugin.getLanguageConfiguration()
                             .getWithPrefix(LanguageConfigurationModel.COMMAND_SET_RESPONSE)
-                            .change("%player%", Bukkit.getOfflinePlayer(currentUUID).getName())
+                            .change("%target%", Bukkit.getOfflinePlayer(currentUUID).getName())
                             .changeFlex("%amount%", amount).toString());
 
-        } catch (NumberFormatException exception) {
-            // Number invalid
-            plugin.getLanguageConfiguration().sendWithPrefix(sender,
-                    LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
-
-            // Print stack trace
-            exception.printStackTrace();
-
-            // Return
-            return CommandResult.NOTHING;
         } catch (Exception exception) {
             plugin.getLanguageConfiguration().sendWithPrefix(sender,
                     LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
@@ -96,7 +98,6 @@ public class SubOptEcoSet extends CommandSub {
 
     @Override
     public List<String> onTab(CommandSender sender, List<String> params) {
-        // TODO Auto-generated method stub
         return null;
     }
 

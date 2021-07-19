@@ -14,21 +14,32 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_SENDER_NO_PERMISSIONS("Command.SenderNoPermissionToExecute",
             "&cYou have no permission to access this command."),
 
-    COMMAND_ME_DESCRIPTION("Command.Me.Description", "Reveal a current balance that player are having"),
+    COMMAND_ME_DESCRIPTION("Command.Me.Description", "Reveal a current balance of player"),
     COMMAND_ME_RESPONSE("Command.Me.Response", "&7You currently have &c%point% %currency_symbol% "),
 
-    COMMAND_SET_DESCRIPTION("Command.Set.Description", "Define or set a new balance to player"),
-    COMMAND_SET_RESPONSE("Command.Set.Response", "&aSet the balance of &6%player% &ato &6%amount% %currency_symbol% "),
+    COMMAND_SET_DESCRIPTION("Command.Set.Description", "Set a new balance to player"),
+    COMMAND_SET_RESPONSE("Command.Set.Response", "&aSet the balance of &6%target% &ato &6%amount% %currency_symbol% "),
 
     COMMAND_HELP_DESCRIPTION("Command.Help.Description", "Show a plugin commands"),
 
-    COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer not found."),
+    COMMAND_ADD_DESCRIPTION("Command.Add.Description", "Add a player current balance"),
+    COMMAND_ADD_RESPONSE("Command.Add.Response", "&aAdd &6%amount% %currency_symbol%&a into &6%target%&a account"),
+
+    COMMAND_TAKE_DESCRIPTION("Command.Take.Description", "Take a player current balance"),
+    COMMAND_TAKE_RESPONSE("Command.Take.Response", "&aTake &6%amount% %currency_symbol%&a from &6%target%&a account"),
+
+    COMMAND_LOOK_DESCRIPTION("Command.Look.Description", "Reveal a balance of specific player."),
+    COMMAND_LOOK_RESPONSE("Command.Look.Response", "&aA player &6%target%&a currently have &6%amount% %currency_symbol%&a."),
+
+    COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),
     COMMAND_RESPONSE_INVALID_NUMBER("Command.GeneralResponse.InvalidNumber",
-            "&cA number that you inputted was invalid"),
+            "&cA number that you inputted was invalid."),
+    COMMAND_RESPONSE_NUMBER_MUST_POSITIVE("Command.GeneralResponse.NumberMustPositive",
+            "&cA number must be a positive value."),
     COMMAND_RESPONSE_UNEXPECTED_ERROR("Command.GeneralResponse.UnexpectedError",
             "&cUnexpected error when executing command."),
     COMMAND_RESPONSE_COMMAND_NOT_FOUND("Command.GeneralResponse.CommandNotFound",
-            "&cCommand not found. Please use &7/point help&c for any assistance"),
+            "&cCommand not found. Please use &7/point help&c for any assistance."),
 
     COMMAND_PARAMETER_PLAYER_OR_UUID("Command.Parameter.PlayerOrUUID", "player/uuid"),
     COMMAND_PARAMETER_AMOUNT("Command.Parameter.Amount", "amount"),

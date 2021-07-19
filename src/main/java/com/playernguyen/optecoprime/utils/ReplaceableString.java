@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
+import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
 
 /**
  * ReplaceableString represents a string that can replace. Can use with
@@ -43,7 +44,7 @@ public class ReplaceableString {
      * @return current replaceable string instance
      */
     public ReplaceableString changeFlex(String target, double to) {
-        reflectTable.put(target, String.format("%.0f", to));
+        reflectTable.put(target, new FlexibleNumber(to).toString());
         return this;
     }
 

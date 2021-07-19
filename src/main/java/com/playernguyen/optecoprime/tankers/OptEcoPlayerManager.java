@@ -140,24 +140,111 @@ public class OptEcoPlayerManager {
         // Request from database
         OptEcoPlayer player = requestPlayerFromDatabase(uuid);
         // Put into map
-        this.add(player);// Fixme: here I am
+        this.add(player);
     }
 
+    /**
+     * Set a balance to player in both database and persist storage.
+     * 
+     * @param uuid    an unique id of player to set.
+     * @param balance a new balance to set.
+     * @throws Exception an exception when cannot receive a value in database.
+     */
     public void setPlayerBalance(UUID uuid, double balance) throws Exception {
-        OptEcoPlayer persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
-                .orElse(new OptEcoPlayerInstance(uuid, balance));
-
-        // If player has not change its balance, no update
-        // Otherwise, change it and update into both storage and database
-        if (persistedPlayer.getBalance() != balance) {
-            // Update it into database
-            plugin.getDatabaseUserController().updatePlayer(uuid, balance);
-            // Update inside storage
-            OptEcoPlayer player = this.map.get(uuid);
-            if (player != null) {
-                this.setBalance(uuid, balance);
+        plugin.getTrackers().describeAsync("set a balance of " + uuid, () -> {
+            OptEcoPlayer persistedPlayer;
+            try {
+                persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+                        .orElse(new OptEcoPlayerInstance(uuid, balance));
+                // If player has not change its balance, no update
+                // Otherwise, change it and update into both storage and database
+                if (persistedPlayer.getBalance() != balance) {
+                    // Update it into database
+                    plugin.getDatabaseUserController().updatePlayer(uuid, balance);
+                    // Update inside storage
+                    OptEcoPlayer player = this.map.get(uuid);
+                    if (player != null) {
+                        this.setBalance(uuid, balance);
+                    }
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }
+        });
     }
 
+    /**
+     * Look up and add more balance to player account from database. Whether player
+     * not existed in database, create a new player with balance is zero and add new
+     * amount.
+     * 
+     * @param uuid   a unique id of that player
+     * @param amount an amount to add
+     * @throws Exception             an exception when system cannot looked up
+     *                               player.
+     * @throws IllegalStateException an amount is not higher than 0
+     */
+    public void addPlayerBalance(UUID uuid, double amount) throws Exception {
+        plugin.getTrackers().describeAsync("add a balance of " + uuid, () -> {
+            try {
+                OptEcoPlayer persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+                        .orElse(new OptEcoPlayerInstance(uuid, 0));
+
+                // If player has not change its balance, no update
+                // Otherwise, change it and update into both storage and database
+                if (amount > 0) {
+                    // Update it into database
+                    plugin.getDatabaseUserController().updatePlayer(uuid, persistedPlayer.getBalance() + amount);
+                    // Update inside storage
+                    OptEcoPlayer player = this.map.get(uuid);
+                    if (player != null) {
+                        this.setBalance(uuid, persistedPlayer.getBalance() + amount);
+                    }
+                    return;
+                }
+                // Not match to the criteria, should handle in front of class (request class)
+                throw new IllegalStateException("an amount must be greater than 0");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * Look up and take more balance to player account from database. Whether player
+     * not existed in database, create a new player with balance is zero and take it
+     * out.
+     * 
+     * @param uuid   an unique id of player
+     * @param amount an amount to take
+     * @throws Exception             an exception when system cannot looked up
+     *                               player.
+     * @throws IllegalStateException an amount is not higher than 0
+     */
+    public void takePlayerBalance(UUID uuid, double amount) throws Exception {
+        plugin.getTrackers().describeAsync("take balance of player" + uuid, () -> {
+            try {
+                OptEcoPlayer persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+                        .orElse(new OptEcoPlayerInstance(uuid, 0));
+
+                // If player has not change its balance, no update
+                // Otherwise, change it and update into both storage and database
+                if (amount > 0) {
+                    // Update it into database
+                    plugin.getDatabaseUserController().updatePlayer(uuid, persistedPlayer.getBalance() - amount);
+                    // Update inside storage
+                    OptEcoPlayer player = this.map.get(uuid);
+                    if (player != null) {
+                        this.setBalance(uuid, persistedPlayer.getBalance() - amount);
+                    }
+                    return;
+                }
+                // Not match to the criteria, should handle in front of class (request class)
+                throw new IllegalStateException("an amount must be greater than 0 (gt 0)");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

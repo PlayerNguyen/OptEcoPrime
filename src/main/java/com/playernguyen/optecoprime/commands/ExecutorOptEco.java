@@ -38,10 +38,13 @@ public class ExecutorOptEco extends CommandExecutor {
                                 .getWithoutPrefix(LanguageConfigurationModel.PREFERENCES_SUB_COMMAND).toString(),
                         true));
 
-        // Add sub command
+        // Add mortal sub command 
         this.getChildren().add(new SubOptEcoMe(plugin, this));
         this.getChildren().add(new SubOptEcoSet(plugin, this));
         this.getChildren().add(new SubOptEcoHelp(plugin, this));
+        this.getChildren().add(new SubOptEcoAdd(plugin, this));
+        this.getChildren().add(new SubOptEcoTake(plugin, this));
+        this.getChildren().add(new SubOptEcoOf(plugin, this));
     }
 
     @Override
@@ -117,7 +120,7 @@ public class ExecutorOptEco extends CommandExecutor {
                 break;
             }
             case MISSING_ARGUMENTS: {
-
+                
                 plugin.getLanguageConfiguration().sendWithPrefix(sender,
                         LanguageConfigurationModel.COMMAND_SENDER_MISSING_ARGUMENT);
                 break;

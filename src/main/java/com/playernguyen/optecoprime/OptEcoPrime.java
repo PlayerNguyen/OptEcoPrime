@@ -12,6 +12,7 @@ import com.playernguyen.optecoprime.commands.core.CommandRegistryManager;
 import com.playernguyen.optecoprime.database.OptEcoDatabaseUserController;
 import com.playernguyen.optecoprime.languages.LanguageConfiguration;
 import com.playernguyen.optecoprime.listeners.OptEcoPlayerListener;
+import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
 import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.tankers.OptEcoPlayerManager;
@@ -24,11 +25,14 @@ import com.playernguyen.pndb.sql.sqlite.DatabaseOptionsSQLite;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class OptEcoPrime extends JavaPlugin {
 
     private static final int THREAD_POOL_SIZE = 3;
+
+    private static final String PLUGIN_PLACEHOLDER_API_NAME = "PlaceholderAPI";
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
@@ -51,10 +55,20 @@ public final class OptEcoPrime extends JavaPlugin {
             setupStorages();
             setupListener();
             setupCommands();
+            setupHook();
         } catch (Exception e) {
             // Handle error. Of course, disable the plugin
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Set up a hook with more plugins
+     */
+    private void setupHook() {
+        // Placeholder api register
+        if (Bukkit.getPluginManager().getPlugin(PLUGIN_PLACEHOLDER_API_NAME) != null)
+            new OptEcoPlaceholder(this);
     }
 
     private void setupCommands()
