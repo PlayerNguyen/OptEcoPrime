@@ -3,6 +3,7 @@ package com.playernguyen.optecoprime.tankers;
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -40,9 +41,10 @@ public class OptEcoUserTanker extends OptEcoTanker<OptEcoPlayer> {
      *
      * @param player a player to remove
      * @return a status of removed or not
+     * @throws Exception an exceptions causes when trackers cannot returns value
      */
     public boolean remove(OptEcoPlayer player) throws Exception {
-        return (boolean) plugin.getTrackers().describeTanker("remove player by predicate ",
+        return plugin.getTrackers().describeTanker("remove player by predicate ",
                 () -> this.getCollection().remove(player));
     }
 
@@ -55,5 +57,17 @@ public class OptEcoUserTanker extends OptEcoTanker<OptEcoPlayer> {
         plugin.getTrackers().describeTanker("remove player by predicate ", () -> {
             this.getCollection().removeIf(predicate);
         });
+    }
+
+    /**
+     * Get player from tanker who was stored in the collection.
+     *
+     * @param predicate a predicate to get
+     * @return an optional contains player or null.
+     * @throws Exception an exceptions causes when trackers cannot returns value
+     */
+    public Optional<OptEcoPlayer> get(Predicate<OptEcoPlayer> predicate) throws Exception {
+        return plugin.getTrackers().describeTanker("get player data from user tanker",
+                () -> this.getCollection().stream().filter(predicate).findFirst());
     }
 }

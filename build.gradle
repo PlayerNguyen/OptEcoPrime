@@ -44,3 +44,18 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+task copyBuildJar() {
+    doLast {
+        copy {
+            from fileTree('build/libs')
+            into 'server/plugins'
+        }
+    }
+}
+
+task buildAndRunServer {
+    dependsOn([clean, jar, copyBuildJar])
+}
+
+jar.dependsOn copyBuildJar
