@@ -75,10 +75,9 @@ public class OptEcoDatabaseUserController {
 	 */
 	private List<OptEcoPlayer> lookUpByUUID(@NotNull UUID uuid) throws Exception {
 		// Request look up user data
-		ResultSet responseSet = plugin.getTrackers().describeAsync("Looking up player " + uuid + " by async task",
-				() -> DatabaseQueryBuilder.newInstance(plugin.getDatabaseHoster()).selectAll(userTableName)
-						.criteria(CriteriaBuilder.newInstance().newField(CriteriaField.equal("uuid")))
-						.executeQuery(uuid.toString()));
+		ResultSet responseSet = DatabaseQueryBuilder.newInstance(plugin.getDatabaseHoster()).selectAll(userTableName)
+				.criteria(CriteriaBuilder.newInstance().newField(CriteriaField.equal("uuid")))
+				.executeQuery(uuid.toString());
 
 		// Fetch data as list then return
 		return deserializePlayersResponse(responseSet);
@@ -108,7 +107,7 @@ public class OptEcoDatabaseUserController {
 	 */
 	public boolean addPlayer(@NotNull UUID uuid, double balance) throws Exception {
 		return DatabaseQueryBuilder.newInstance(plugin.getDatabaseHoster()).insert(userTableName)
-				.values("uuid", "balance").executeUpdate(uuid, balance) == 1;
+				.values("uuid", "balance").executeUpdate(uuid.toString(), balance) == 1;
 	}
 
 	/**

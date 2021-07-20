@@ -16,6 +16,15 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
             "A duration to check whether the player information was old or not. ",
             "Calculate in millisecond with 1000ms = 1s"),
 
+    DATABASE_MYSQL_HOST("Database.MySQl.Host", "localhost", "A host address for OptEcoPrime to connect to database"),
+    DATABASE_MYSQL_PORT("Database.MySQl.Port", "3306", "A port from database for OptEcoPrime to connect to database"),
+    DATABASE_MYSQL_USERNAME("Database.MySQl.Username", "root", "Credential username, to connect to MySQL server"),
+    DATABASE_MYSQL_PASSWORD("Database.MySQl.Password", "", "Credential password, to connect to MySQL server"),
+    DATABASE_MYSQL_DATABASE("Database.MySQl.Database", "optecoprime",
+            "A database, you must create a database before using"),
+    DATABASE_MYSQL_OPTIONS("Database.MySQl.Options", "useSSL=false",
+            "An option as url parameter to config your database connection."),
+
     ;
 
     private final String path;

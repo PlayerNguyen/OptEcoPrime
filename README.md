@@ -25,3 +25,8 @@ After downloaded plugin, you just need to put it into your /plugins folder in yo
 # Guideline
 Everything is too complicated? Do not be panic! OptEcoPrime also provide you many usage guide, tips, ... Check out our Wiki to get to experience our fascinating plugin right now.
 
+# Ending
+OptEcoPrime is great. However, the developer team determine that we need a budget to maintain this plugin. So, we also have OptEcoPrimeEnhanced, which we sold 14 USD. OptEcoPrimeEnhanced owns many great features such as beautiful effects, web GUI manager. Moreover, we send our love to this plugin in order to make a greatest plugin in Minecraft Community. Whether you have any interesting, check out this here. Nevertheless, OptEcoPrime is fully free and the code is sharing for you to personally use, build, or even modify.
+
+# Contribute
+Once again, thanks for supporting our services. You have any issue with the plugin, or/and even want to post new update to it. Please create an issues

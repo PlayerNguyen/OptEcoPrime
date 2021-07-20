@@ -18,6 +18,8 @@ import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.tankers.OptEcoPlayerManager;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
 import com.playernguyen.pndb.sql.hoster.DatabaseHoster;
+import com.playernguyen.pndb.sql.mysql.DatabaseHosterMySQL;
+import com.playernguyen.pndb.sql.mysql.DatabaseOptionsMySQL;
 import com.playernguyen.pndb.sql.query.DatabaseQueryBuilder;
 import com.playernguyen.pndb.sql.sqlite.DatabaseHosterSQLite;
 import com.playernguyen.pndb.sql.sqlite.DatabaseOptionsSQLite;
@@ -25,7 +27,6 @@ import com.playernguyen.pndb.sql.sqlite.DatabaseOptionsSQLite;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class OptEcoPrime extends JavaPlugin {
@@ -133,7 +134,7 @@ public final class OptEcoPrime extends JavaPlugin {
     private void setupDatabase() {
         String persistDatabaseType = this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TYPE)
                 .asString();
-
+        // SQLite initialize
         if (persistDatabaseType.equalsIgnoreCase("sqlite")) {
             File sqliteFile = new File(this.getDataFolder(),
                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME).asString());
@@ -159,6 +160,37 @@ public final class OptEcoPrime extends JavaPlugin {
 
             return;
         }
+        // MySQL initialize
+        if (persistDatabaseType.equalsIgnoreCase("mysql")) {
+            DatabaseOptionsMySQL options = new DatabaseOptionsMySQL(
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_HOST).asString(),
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_PORT).asString(),
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_USERNAME).asString(),
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_PASSWORD).asString(),
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_DATABASE).asString(),
+                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_OPTIONS).asString());
+
+            this.databaseHoster = new DatabaseHosterMySQL(options);
+            // Set up tables by run async task
+            Bukkit.getScheduler().runTaskAsynchronously(this,
+                    () -> trackers.describeDatabase("Access and create users table", () -> {
+                        try {
+                            // Set up user table
+                            DatabaseQueryBuilder.newInstance(getDatabaseHoster())
+                                    .executeCustomUpdate(String.format("CREATE TABLE IF NOT EXISTS %s_users ("
+                                            + "uuid varchar(255) NOT NULL PRIMARY KEY " + ",balance double NOT NULL"
+                            // + ",username varchar(255) NOT NULL"
+                                            + ")",
+                                            this.getSettingConfiguration()
+                                                    .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX).asString()));
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    }));
+
+            return;
+        }
+
         // Unsupported type
         throw new IllegalStateException(String.format("cannot found database type %s", persistDatabaseType));
     }

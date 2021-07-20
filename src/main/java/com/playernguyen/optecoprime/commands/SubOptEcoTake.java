@@ -104,7 +104,7 @@ public class SubOptEcoTake extends CommandSub {
                     LanguageConfigurationModel.COMMAND_RESPONSE_UNEXPECTED_ERROR);
             e.printStackTrace();
         }
-        return null;
+        return CommandResult.NOTHING;
     }
 
     @Override

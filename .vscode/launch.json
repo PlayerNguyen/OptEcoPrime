@@ -6,9 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Run Test Enviroment",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
         }
     ]
 }
