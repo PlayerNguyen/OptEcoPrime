@@ -1,3 +1,4 @@
+[![Build](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml/badge.svg)](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml)
 # Introduction
 A first word, OptEcoPrime was inspired on our old-style OptEco, which plugin that is really useful. However, we saw tones of problem in maintaining, programming, and building that plugin.
 
