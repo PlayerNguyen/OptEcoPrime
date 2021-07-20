@@ -30,14 +30,6 @@ public class NumberUtilTest {
     }
 
     @Test
-    public void shouldReturnFlexibleNumber() {
-        // revert a flexible string
-        FlexibleNumber number = new FlexibleNumber(15.98);
-        Assert.assertEquals("15,98", number.toString());
-
-    }
-
-    @Test
     public void shouldReturnInitInFlexNumber() {
         // int number
         FlexibleNumber intNumber = new FlexibleNumber(16.0000000);
