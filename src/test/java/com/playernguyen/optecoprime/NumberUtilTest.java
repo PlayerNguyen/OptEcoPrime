@@ -32,7 +32,7 @@ public class NumberUtilTest {
     @Test
     public void shouldReturnFlexibleNumber() {
         // revert a flexible string
-        FlexibleNumber number = new FlexibleNumber(15.978201938);
+        FlexibleNumber number = new FlexibleNumber(15.98);
         Assert.assertEquals("15,98", number.toString());
 
     }
