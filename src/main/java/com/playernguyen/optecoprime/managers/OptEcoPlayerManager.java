@@ -1,4 +1,4 @@
-package com.playernguyen.optecoprime.tankers;
+package com.playernguyen.optecoprime.managers;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;

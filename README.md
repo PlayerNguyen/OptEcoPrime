@@ -1,11 +1,10 @@
 [![Build](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml/badge.svg)](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml)
 # Introduction
-![alt text](https://raw.githubusercontent.com/PlayerNguyen/OptEcoPrime/master/assets/OptEcoPrimeBanner.png "Big OptEcoPrime banner")
-A first word, OptEcoPrime was inspired on our old-style OptEco, which plugin that is really useful. However, we saw tones of problem in maintaining, programming, and building that plugin.
+![alt text](/assets/OptEcoPrimeBanner.png "Big OptEcoPrime banner")
 
 OptEcoPrime, a primitive currency Bukkit plugin with high efficiency contains many tweaks. This plugin was born for a powerful currency system includes Database integrated and marvelous enhanced with faster speed, concurrent transaction. 
 
-Hence, here are important points to select OptEco:
+There are important points to select OptEco:
 - **Database supported**
   - MySQL
   - SQLite
