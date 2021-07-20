@@ -1,6 +1,7 @@
 package com.playernguyen.optecoprime;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,13 @@ import com.playernguyen.optecoprime.commands.core.CommandRegistryManager;
 import com.playernguyen.optecoprime.database.OptEcoDatabaseUserController;
 import com.playernguyen.optecoprime.languages.LanguageConfiguration;
 import com.playernguyen.optecoprime.listeners.OptEcoPlayerListener;
+import com.playernguyen.optecoprime.loggers.ConsoleTeller;
 import com.playernguyen.optecoprime.managers.OptEcoPlayerManager;
 import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
 import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
+import com.playernguyen.optecoprime.updater.OptEcoUpdater;
 import com.playernguyen.pndb.sql.hoster.DatabaseHoster;
 import com.playernguyen.pndb.sql.mysql.DatabaseHosterMySQL;
 import com.playernguyen.pndb.sql.mysql.DatabaseOptionsMySQL;
@@ -44,10 +47,13 @@ public final class OptEcoPrime extends JavaPlugin {
     private OptEcoPlayerManager userStorage;
     private LanguageConfiguration languageConfiguration;
     private CommandRegistryManager commandRegistryManager;
+    private ConsoleTeller consoleTeller;
+    private OptEcoUpdater updater;
 
     @Override
     public void onEnable() {
         try {
+            setupTeller();
             setupConfiguration();
             setupTrackers();
             setupLanguage();
@@ -57,16 +63,28 @@ public final class OptEcoPrime extends JavaPlugin {
             setupListener();
             setupCommands();
             setupHook();
+            setupUpdater();
         } catch (Exception e) {
             // Handle error. Of course, disable the plugin
             e.printStackTrace();
         }
     }
 
+    private void setupUpdater() throws Exception {
+        if (updater == null) {
+            this.updater = new OptEcoUpdater(this);
+        }
+
+        updater.checkForUpdate((version) -> {
+            getConsoleTeller().send("&aNew update released: " + version);
+        });
+    }
+
     /**
      * Set up a hook with more plugins
      */
     private void setupHook() {
+        this.getConsoleTeller().send("Initializing plugin-hook with other plugins");
         // Placeholder api register
         if (Bukkit.getPluginManager().getPlugin(PLUGIN_PLACEHOLDER_API_NAME) != null)
             new OptEcoPlaceholder(this);
@@ -74,6 +92,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     private void setupCommands()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        this.getConsoleTeller().send("Initializing commands and executors");
         if (this.commandRegistryManager == null) {
             this.commandRegistryManager = new CommandRegistryManager();
         } else {
@@ -88,6 +107,7 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     private void setupLanguage() throws Exception {
+        this.getConsoleTeller().send("Initializing language configuration");
         if (this.languageConfiguration == null) {
             this.languageConfiguration = new LanguageConfiguration(this);
         } else {
@@ -125,6 +145,13 @@ public final class OptEcoPrime extends JavaPlugin {
         }
     }
 
+    private void setupTeller() {
+        if (this.consoleTeller == null) {
+            this.consoleTeller = new ConsoleTeller(this);
+        }
+
+    }
+
     private void setupTrackers() {
         if (this.trackers == null) {
             this.trackers = new OptEcoTrackers(this);
@@ -132,10 +159,13 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     private void setupDatabase() {
+        this.getConsoleTeller().send("Invoking configured database type");
         String persistDatabaseType = this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TYPE)
                 .asString();
+
         // SQLite initialize
         if (persistDatabaseType.equalsIgnoreCase("sqlite")) {
+            this.getConsoleTeller().send("&6Detecting sqlite database type, loading files");
             File sqliteFile = new File(this.getDataFolder(),
                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME).asString());
             DatabaseOptionsSQLite optionsSQLite = new DatabaseOptionsSQLite(sqliteFile.getAbsolutePath());
@@ -145,6 +175,7 @@ public final class OptEcoPrime extends JavaPlugin {
             Bukkit.getScheduler().runTaskAsynchronously(this,
                     () -> trackers.describeDatabase("Access and create users table", () -> {
                         try {
+                            this.getConsoleTeller().send("&6Customize table interface");
                             // Set up user table
                             DatabaseQueryBuilder.newInstance(getDatabaseHoster())
                                     .executeCustomUpdate(String.format("CREATE TABLE IF NOT EXISTS %s_users ("
@@ -162,6 +193,7 @@ public final class OptEcoPrime extends JavaPlugin {
         }
         // MySQL initialize
         if (persistDatabaseType.equalsIgnoreCase("mysql")) {
+            this.getConsoleTeller().send("&6Detecting MySQL database type, initializing connection");
             DatabaseOptionsMySQL options = new DatabaseOptionsMySQL(
                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_HOST).asString(),
                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_MYSQL_PORT).asString(),
@@ -176,6 +208,7 @@ public final class OptEcoPrime extends JavaPlugin {
                     () -> trackers.describeDatabase("Access and create users table", () -> {
                         try {
                             // Set up user table
+                            this.getConsoleTeller().send("&6Customize table interface");
                             DatabaseQueryBuilder.newInstance(getDatabaseHoster())
                                     .executeCustomUpdate(String.format("CREATE TABLE IF NOT EXISTS %s_users ("
                                             + "uuid varchar(255) NOT NULL PRIMARY KEY " + ",balance double NOT NULL"
@@ -196,6 +229,7 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     private void setupConfiguration() throws Exception {
+        this.getConsoleTeller().send("Invoking setting configuration");
         if (settingConfiguration == null) {
             this.settingConfiguration = new SettingConfiguration(this);
         } else {
@@ -266,5 +300,14 @@ public final class OptEcoPrime extends JavaPlugin {
      */
     public LanguageConfiguration getLanguageConfiguration() {
         return languageConfiguration;
+    }
+
+    /**
+     * A console teller bares some method to prettier the history log
+     * 
+     * @return a console teller class instance
+     */
+    public ConsoleTeller getConsoleTeller() {
+        return consoleTeller;
     }
 }

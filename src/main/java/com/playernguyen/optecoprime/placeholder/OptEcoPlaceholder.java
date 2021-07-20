@@ -3,6 +3,7 @@ package com.playernguyen.optecoprime.placeholder;
 import java.util.concurrent.ExecutionException;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
+import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
 import com.playernguyen.optecoprime.utils.SenderUtil.Teller;
@@ -22,9 +23,10 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
     public OptEcoPlaceholder(OptEcoPrime plugin) {
 
         this.plugin = plugin;
-        Teller.init(Bukkit.getConsoleSender()).next("[OptEcoPrime] &aHooking with &6PlaceholderAPI"); 
         // Register this placeholder
-        this.register();
+        if (this.register()) {
+            plugin.getConsoleTeller().send("&aSuccessfully hooking with &6PlaceholderAPI");
+        }
     }
 
     /**
@@ -67,6 +69,14 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        /**
+         * optecoprime_currency_symbol: return a currency symbol which configured in
+         * Setting.yml
+         */
+        if (params.equalsIgnoreCase("currency_symbol")) {
+            return plugin.getLanguageConfiguration().get(LanguageConfigurationModel.CURRENCY_SYMBOL).asString();
         }
 
         return super.onRequest(player, params);
