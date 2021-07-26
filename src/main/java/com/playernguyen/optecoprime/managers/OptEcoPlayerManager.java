@@ -126,8 +126,8 @@ public class OptEcoPlayerManager {
      * @throws Exception            an exception
      */
     private OptEcoPlayer requestPlayerFromDatabase(UUID uuid) throws NullPointerException, Exception {
-        return plugin.getUserController().getPlayerByUUID(uuid)
-                .orElseThrow(() -> new NullPointerException("user not found in database " + uuid));
+        return plugin.getUserController().getPlayerByUUID(uuid).orElseThrow(
+                () -> new NullPointerException("Player not found in database (requestPlayerFromDatabase)"));
     }
 
     /**
@@ -140,6 +140,7 @@ public class OptEcoPlayerManager {
     public void add(UUID uuid) throws NullPointerException, Exception {
         // Request from database
         OptEcoPlayer player = requestPlayerFromDatabase(uuid);
+
         // Put into map
         this.add(player);
     }
@@ -189,7 +190,8 @@ public class OptEcoPlayerManager {
         plugin.getTrackers().describeAsync("add a balance of " + uuid, () -> {
             try {
                 OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)
-                        .orElse(new OptEcoPlayerInstance(uuid, 0));
+                        .orElse(new OptEcoPlayerInstance(uuid, plugin.getSettingConfiguration()
+                                .get(SettingConfigurationModel.USER_BEGINNING_POINT).asDouble()));
 
                 // If player has not change its balance, no update
                 // Otherwise, change it and update into both storage and database

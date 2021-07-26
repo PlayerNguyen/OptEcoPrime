@@ -87,10 +87,9 @@ public class SubOptEcoTake extends CommandSub {
             return CommandResult.NOTHING;
         }
 
-
         try {
             // Paying in action
-            plugin.getPlayerManager().addPlayerBalance(uuid, filter.asNumber());
+            plugin.getPlayerManager().takePlayerBalance(uuid, filter.asNumber());
 
             // Then response to the sender
             Teller.init(sender)

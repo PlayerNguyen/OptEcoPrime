@@ -22,20 +22,15 @@ public class OptEcoPlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) throws Exception {
         // Trying to get player's data from database
         Player joinedPlayer = event.getPlayer();
-        OptEcoPlayer retrievePlayer = plugin.getUserController().getPlayerByUUID(joinedPlayer.getUniqueId())
-                .orElse(null);
 
-        // If player has not found on server, initialize a new player
-        if (retrievePlayer == null) {
-            retrievePlayer = new OptEcoPlayerInstance(joinedPlayer.getUniqueId(),
+        if (!plugin.getUserController().hasPlayer(joinedPlayer.getUniqueId())) {
+            // Add new player (initial) bares current begin balance
+            plugin.getUserController().addPlayer(joinedPlayer.getUniqueId(),
                     plugin.getSettingConfiguration().get(SettingConfigurationModel.USER_BEGINNING_POINT).asDouble());
-
-            // Add new player into database
-            plugin.getUserController().addPlayer(retrievePlayer.getUniqueId(), retrievePlayer.getBalance());
         }
 
-        // Then, put it to the cache storage
-        plugin.getPlayerManager().add(retrievePlayer);
+        // Add this into a manager
+        plugin.getPlayerManager().add(joinedPlayer.getUniqueId());
     }
 
     @EventHandler

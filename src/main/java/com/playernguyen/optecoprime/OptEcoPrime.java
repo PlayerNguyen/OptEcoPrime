@@ -337,7 +337,21 @@ public final class OptEcoPrime extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        disableDatabaseSource();
+    }
+
+    private void disableDatabaseSource() {
+        this.getConsoleTeller().send("Invoking configured database type");
+        String persistDatabaseType = this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TYPE)
+                .asString();
+
+        if (persistDatabaseType.equals("mysql")) {
+            // Close a data source in order not to cause Too many connections
+            MySQLHikariDispatch hikariDispatch = (MySQLHikariDispatch) this.getDispatch();
+            if (hikariDispatch.getDataSource() != null) {
+                hikariDispatch.getDataSource().close();
+            }
+        }
     }
 
     /**
