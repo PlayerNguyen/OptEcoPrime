@@ -45,6 +45,12 @@ public class SubOptEcoPay extends CommandSub {
     @Override
     public CommandResult onExecute(CommandSender sender, List<String> params) {
 
+        // Match sender
+        if (!(sender instanceof Player)) {
+            onInvalidSender(sender, params);
+            return CommandResult.NOTHING;
+        }
+
         // Missing parameters
         if (params.size() != 2) {
             Teller.init(sender).next(toGuidelineText());
@@ -52,10 +58,10 @@ public class SubOptEcoPay extends CommandSub {
         }
 
         // Find online player (yes, must be online player)
-        Player containerPlayer = Bukkit.getPlayer(params.get(0));
+        Player target = Bukkit.getPlayer(params.get(0));
 
         // Not found player
-        if (containerPlayer == null) {
+        if (target == null) {
             Teller.init(sender).next(plugin.getLanguageConfiguration()
                     .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_PLAYER_NOT_FOUND).toString());
             return CommandResult.NOTHING;
@@ -78,8 +84,31 @@ public class SubOptEcoPay extends CommandSub {
             return CommandResult.NOTHING;
         }
 
-        // If passed all tests, continue creating transact
+        // Cannot send to themselves
+        Player _sender = (Player) sender;
         
+        // Match uuid, response fail
+        if (target.getUniqueId().equals(_sender.getUniqueId())) {
+            Teller.init(sender).next(plugin.getLanguageConfiguration()
+                    .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_ONESELF_PAY).toString());
+            return CommandResult.NOTHING;
+        }
+        // If passed all tests, continue creating transact
+        try {
+            // Transact an amount of balance to target
+            plugin.getPlayerManager().transact(_sender.getUniqueId(), target.getUniqueId(), filter.asNumber());
+            // Send message to response to player
+            Teller.init(sender)
+                    .next(plugin.getLanguageConfiguration()
+                            .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_RESPONSE)
+                            .changeFlex("%amount%", filter.asNumber()).change("%target%", target.getName()).toString());
+        } catch (Exception e) {
+            // Tell sender causing error
+            Teller.init(sender).next(plugin.getLanguageConfiguration()
+                    .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_UNEXPECTED_ERROR).toString());
+            // Print stack trance
+            e.printStackTrace();
+        }
 
         return null;
     }
