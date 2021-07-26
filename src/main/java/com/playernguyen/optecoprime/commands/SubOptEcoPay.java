@@ -86,15 +86,24 @@ public class SubOptEcoPay extends CommandSub {
 
         // Cannot send to themselves
         Player _sender = (Player) sender;
-        
+
         // Match uuid, response fail
         if (target.getUniqueId().equals(_sender.getUniqueId())) {
             Teller.init(sender).next(plugin.getLanguageConfiguration()
                     .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_ONESELF_PAY).toString());
             return CommandResult.NOTHING;
         }
+
         // If passed all tests, continue creating transact
         try {
+            // Check whether player have enough money to pay
+            if (plugin.getPlayerManager().getPlayer(_sender.getUniqueId()).getBalance() < filter.asNumber()) {
+                Teller.init(sender)
+                        .next(plugin.getLanguageConfiguration()
+                        .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_BALANCE_NOT_ENOUGH).toString()); 
+                return CommandResult.NOTHING;
+            }
+
             // Transact an amount of balance to target
             plugin.getPlayerManager().transact(_sender.getUniqueId(), target.getUniqueId(), filter.asNumber());
             // Send message to response to player

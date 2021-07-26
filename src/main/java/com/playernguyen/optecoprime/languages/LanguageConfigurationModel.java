@@ -34,6 +34,7 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_PAY_DESCRIPTION("Command.Pay.Description", "Transact your balance to another online player"),
     COMMAND_PAY_RESPONSE("Command.Pay.Response", "&aTransact %amount% %currency_symbol% to %target%"),
     COMMAND_PAY_ONESELF_PAY("Command.Pay.OneselfPay", "&cYou cannot pay to yourself."),
+    COMMAND_PAY_BALANCE_NOT_ENOUGH("Command.Pay.BalanceNotEnough", "&cYou have not have enough in your account to pay"),
 
     COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),
     COMMAND_RESPONSE_INVALID_NUMBER("Command.GeneralResponse.InvalidNumber",

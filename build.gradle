@@ -31,18 +31,17 @@ dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'junit:junit:4.13.1'
     
-    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.10.10'
-    testImplementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+    // testImplementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+    implementation 'me.clip:placeholderapi:2.10.10'
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
-    compile 'com.github.PlayerNguyen:db-collective:R1.0.1'
+    compile 'com.github.PlayerNguyen:db-collective:R1.0.2'
+
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:2.3.2'
 
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
 
 }

@@ -1,9 +1,8 @@
 package com.playernguyen.optecoprime.listeners;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
-import com.playernguyen.optecoprime.players.OptEcoPlayer;
-import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
