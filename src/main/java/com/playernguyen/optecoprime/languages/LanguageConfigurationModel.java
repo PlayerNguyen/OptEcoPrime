@@ -32,6 +32,7 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_LOOK_RESPONSE("Command.Look.Response", "&aA player &6%target%&a currently have &6%amount% %currency_symbol%&a."),
 
     COMMAND_PAY_DESCRIPTION("Command.Pay.Description", "Transact your balance to another online player"),
+    COMMAND_PAY_RESPONSE("Command.Pay.Response", "Transact %amount% %currency_symbol% to %target%"),
 
     COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),
     COMMAND_RESPONSE_INVALID_NUMBER("Command.GeneralResponse.InvalidNumber",

@@ -247,4 +247,31 @@ public class OptEcoPlayerManager {
             }
         });
     }
+
+    /**
+     * Transacts from player to player (pay someone). This method will take a
+     * balance from `from` target and add this to `to` target. <br>
+     * 
+     * NOTE: from and to parameter must not be equaled. Otherwise throw an
+     * IllegalStateException.
+     * 
+     * @param from
+     * @param to
+     * @param amount
+     * @throws Exception
+     */
+    public void transact(UUID from, UUID to, double amount) throws Exception {
+        // Cannot send equivalent target
+        if (from.equals(to)) {
+            throw new IllegalStateException("cannot send equivalent");
+        }
+        // Take point of from
+        takePlayerBalance(from, amount);
+
+        // Add `to` target
+        addPlayerBalance(to, amount);
+
+        // Create transaction records method (todo)
+    }
+
 }

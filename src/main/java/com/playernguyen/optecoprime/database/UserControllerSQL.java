@@ -16,6 +16,7 @@ import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -105,10 +106,12 @@ public class UserControllerSQL implements UserController {
 	 * @throws SQLException an exception that server cannot querying
 	 */
 	public boolean addPlayer(@NotNull UUID uuid, double balance) throws SQLException {
+		OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 		AtomicBoolean status = new AtomicBoolean();
 		plugin.getDispatch().executeUpdate((updatedRows) -> {
 			status.set(updatedRows == 1);
-		}, String.format("INSERT INTO %s (uuid, balance) VALUES (?, ?)", userTableName), uuid.toString(), balance);
+		}, String.format("INSERT INTO %s (uuid, balance, username) VALUES (?, ?, ?)", userTableName), uuid.toString(),
+				balance, player.getName());
 		return status.get();
 	}
 

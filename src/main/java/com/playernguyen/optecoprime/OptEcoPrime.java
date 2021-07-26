@@ -269,7 +269,7 @@ public final class OptEcoPrime extends JavaPlugin {
                             dispatch.executeUpdate(updatedRow -> {
                             }, String.format(
                                     "CREATE TABLE IF NOT EXISTS %s_users (" + "uuid varchar UNIQUE PRIMARY KEY NOT NULL"
-                                            + ",balance double NOT NULL" + ")",
+                                            + ",balance double NOT NULL" + ", username varchar not null)",
                                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                                             .asString()));
                         } catch (SQLException throwables) {
@@ -304,7 +304,7 @@ public final class OptEcoPrime extends JavaPlugin {
                             this.dispatch.executeUpdate((rows) -> {
                             }, String.format(
                                     "CREATE TABLE IF NOT EXISTS %s_users (" + "uuid varchar(255) NOT NULL PRIMARY KEY "
-                                            + ",balance double NOT NULL" + ")",
+                                            + ",balance double NOT NULL" + ",username varchar not null)",
                                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                                             .asString()));
                         } catch (SQLException throwables) {
