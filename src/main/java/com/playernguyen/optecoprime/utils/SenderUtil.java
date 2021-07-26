@@ -1,8 +1,11 @@
 package com.playernguyen.optecoprime.utils;
 
-import org.bukkit.command.CommandSender;
+import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Sender util contains utilities in order to send message to CommandSender
@@ -17,7 +20,11 @@ public class SenderUtil {
      * @param context a context with formatted code
      */
     public static void reveal(CommandSender target, String context) {
-
+        if (target instanceof Player || target instanceof OfflinePlayer) {
+            target.sendMessage(ChatColor.translateAlternateColorCodes(COLOR_CHARACTER,
+                    OptEcoPlaceholder.requestPlaceholder((OfflinePlayer) target, context)));
+            return;
+        }
         target.sendMessage(ChatColor.translateAlternateColorCodes(COLOR_CHARACTER, context));
     }
 

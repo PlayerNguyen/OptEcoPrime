@@ -31,6 +31,8 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_LOOK_DESCRIPTION("Command.Look.Description", "Reveal a balance of specific player."),
     COMMAND_LOOK_RESPONSE("Command.Look.Response", "&aA player &6%target%&a currently have &6%amount% %currency_symbol%&a."),
 
+    COMMAND_PAY_DESCRIPTION("Command.Pay.Description", "Transact your balance to another online player"),
+
     COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),
     COMMAND_RESPONSE_INVALID_NUMBER("Command.GeneralResponse.InvalidNumber",
             "&cA number that you inputted was invalid."),
@@ -42,6 +44,7 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
             "&cCommand not found. Please use &7/point help&c for any assistance."),
 
     COMMAND_PARAMETER_PLAYER_OR_UUID("Command.Parameter.PlayerOrUUID", "player/uuid"),
+    COMMAND_PARAMETER_PLAYER("Command.Parameter.Player", "player"),
     COMMAND_PARAMETER_AMOUNT("Command.Parameter.Amount", "amount"),
 
     PREFERENCES_SUB_COMMAND("Preferences.SubCommand", "sub-command"),;

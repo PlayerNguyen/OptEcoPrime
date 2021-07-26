@@ -44,7 +44,7 @@ public class SubOptEcoTake extends CommandSub {
     @Override
     public CommandResult onExecute(CommandSender sender, List<String> params) {
         // Missing parameters
-        if (params.size() < 2) {
+        if (params.size() != 2) {
             Teller.init(sender).next(toGuidelineText());
             return CommandResult.MISSING_ARGUMENTS;
         }

@@ -47,37 +47,37 @@ public class SubOptEcoSet extends CommandSub {
             return CommandResult.MISSING_ARGUMENTS;
         }
 
-        try {
+        UUID currentUUID = null;
+        // If using username, the player must online
+        if (!StringUtil.isUUID(params.get(0))) {
+            Player alternativePlayer = Bukkit.getPlayer(params.get(0));
 
-            UUID currentUUID = null;
-            // If using username, the player must online
-            if (!StringUtil.isUUID(params.get(0))) {
-                Player alternativePlayer = Bukkit.getPlayer(params.get(0));
+            // Send player not found
+            if (alternativePlayer == null) {
+                Teller.init(sender)
+                        .next(plugin.getLanguageConfiguration()
+                                .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_PLAYER_NOT_FOUND)
+                                .change("%target%", params.get(0)).toString());
 
-                // Send player not found
-                if (alternativePlayer == null) {
-                    Teller.init(sender)
-                            .next(plugin.getLanguageConfiguration()
-                                    .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_PLAYER_NOT_FOUND)
-                                    .change("%target%", params.get(0)).toString());
-
-                    return CommandResult.NOTHING;
-                }
-
-                currentUUID = alternativePlayer.getUniqueId();
-            } else
-                currentUUID = UUID.fromString(params.get(0));
-
-            NumberFilter numberFilter = new NumberFilter(params.get(1));
-
-            // Number invalid or not a number
-            if (!numberFilter.isNumber()) {
-                plugin.getLanguageConfiguration().sendWithPrefix(sender,
-                        LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
                 return CommandResult.NOTHING;
             }
 
-            double amount = numberFilter.asNumber();
+            currentUUID = alternativePlayer.getUniqueId();
+        } else
+            currentUUID = UUID.fromString(params.get(0));
+
+        // Get an amount parameter and handle
+        NumberFilter numberFilter = new NumberFilter(params.get(1));
+
+        // Number invalid or not a number
+        if (!numberFilter.isNumber()) {
+            plugin.getLanguageConfiguration().sendWithPrefix(sender,
+                    LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
+            return CommandResult.NOTHING;
+        }
+
+        double amount = numberFilter.asNumber();
+        try {
             // Set a balance to player
             plugin.getPlayerManager().setPlayerBalance(currentUUID, amount);
 
@@ -87,12 +87,10 @@ public class SubOptEcoSet extends CommandSub {
                             .getWithPrefix(LanguageConfigurationModel.COMMAND_SET_RESPONSE)
                             .change("%target%", Bukkit.getOfflinePlayer(currentUUID).getName())
                             .changeFlex("%amount%", amount).toString());
-
-        } catch (Exception exception) {
-            plugin.getLanguageConfiguration().sendWithPrefix(sender,
-                    LanguageConfigurationModel.COMMAND_RESPONSE_INVALID_NUMBER);
-            exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return CommandResult.NOTHING;
     }
 

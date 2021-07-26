@@ -45,6 +45,7 @@ public class ExecutorOptEco extends CommandExecutor {
         this.getChildren().add(new SubOptEcoAdd(plugin, this));
         this.getChildren().add(new SubOptEcoTake(plugin, this));
         this.getChildren().add(new SubOptEcoOf(plugin, this));
+        this.getChildren().add(new SubOptEcoPay(plugin, this));
     }
 
     @Override

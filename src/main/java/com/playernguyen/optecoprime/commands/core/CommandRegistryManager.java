@@ -26,8 +26,20 @@ public class CommandRegistryManager {
 
     /**
      * Clean up anything
+     * 
+     * @throws NoSuchFieldException     bukkit exception
+     * @throws SecurityException        bukkit exception
+     * @throws IllegalArgumentException bukkit exception
+     * @throws IllegalAccessException   bukkit exception
      */
-    public void clearAll() {
+    public void clearAll()
+            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+
+        bukkitCommandMap.setAccessible(true);
+        CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+        commandMap.clearCommands();
         this.executors.clear();
     }
 
@@ -48,6 +60,7 @@ public class CommandRegistryManager {
 
         executors.forEach(executor -> {
             commandMap.register(executor.getName(), executor);
+
         });
     }
 

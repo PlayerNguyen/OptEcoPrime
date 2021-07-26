@@ -14,4 +14,13 @@ public class SettingConfiguration extends ConfigurationAbstract<SettingConfigura
                 SettingConfigurationModel.class,
                 PARENT_FOLDER_NAME);
     }
+
+    /**
+     * Get a configuration model a value as string
+     * @param model a model to get as string
+     * @return a string value
+     */
+    public String getString(SettingConfigurationModel model) {
+        return this.get(model).asString();
+    }
 }

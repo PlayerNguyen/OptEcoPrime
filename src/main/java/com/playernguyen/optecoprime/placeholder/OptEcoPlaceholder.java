@@ -6,12 +6,12 @@ import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
-import com.playernguyen.optecoprime.utils.SenderUtil.Teller;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 /**
@@ -80,6 +80,22 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
         }
 
         return super.onRequest(player, params);
+    }
+
+    /**
+     * Requests and transforms a string includes replacement placeholder by
+     * {@link PlaceholderAPI#setPlaceholders(OfflinePlayer, String)}. Return data
+     * whether a plugin is not registered
+     * 
+     * @param player a target to set
+     * @param data   a data as string to transform
+     * @return a transformed text
+     */
+    public static String requestPlaceholder(@NotNull OfflinePlayer player, @NotNull String data) {
+        if (Bukkit.getPluginManager().getPlugin(OptEcoPrime.PLUGIN_PLACEHOLDER_API_NAME) == null) {
+            return data;
+        }
+        return PlaceholderAPI.setPlaceholders(player, data);
     }
 
 }

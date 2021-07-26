@@ -1,5 +1,6 @@
 package com.playernguyen.optecoprime.managers;
 
+import com.google.common.base.Preconditions;
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
@@ -125,7 +126,7 @@ public class OptEcoPlayerManager {
      * @throws Exception            an exception
      */
     private OptEcoPlayer requestPlayerFromDatabase(UUID uuid) throws NullPointerException, Exception {
-        return plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+        return plugin.getUserController().getPlayerByUUID(uuid)
                 .orElseThrow(() -> new NullPointerException("user not found in database " + uuid));
     }
 
@@ -150,17 +151,16 @@ public class OptEcoPlayerManager {
      * @param balance a new balance to set.
      * @throws Exception an exception when cannot receive a value in database.
      */
-    public void setPlayerBalance(UUID uuid, double balance) throws Exception {
+    public void setPlayerBalance(@NotNull UUID uuid, double balance) throws Exception {
         plugin.getTrackers().describeAsync("set a balance of " + uuid, () -> {
-            OptEcoPlayer persistedPlayer;
             try {
-                persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
-                        .orElse(new OptEcoPlayerInstance(uuid, balance));
+                OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)
+                        .orElseThrow(NullPointerException::new);
                 // If player has not change its balance, no update
                 // Otherwise, change it and update into both storage and database
                 if (persistedPlayer.getBalance() != balance) {
                     // Update it into database
-                    plugin.getDatabaseUserController().updatePlayer(uuid, balance);
+                    plugin.getUserController().updatePlayer(uuid, balance);
                     // Update inside storage
                     OptEcoPlayer player = this.map.get(uuid);
                     if (player != null) {
@@ -188,14 +188,14 @@ public class OptEcoPlayerManager {
     public void addPlayerBalance(UUID uuid, double amount) throws Exception {
         plugin.getTrackers().describeAsync("add a balance of " + uuid, () -> {
             try {
-                OptEcoPlayer persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+                OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)
                         .orElse(new OptEcoPlayerInstance(uuid, 0));
 
                 // If player has not change its balance, no update
                 // Otherwise, change it and update into both storage and database
                 if (amount > 0) {
                     // Update it into database
-                    plugin.getDatabaseUserController().updatePlayer(uuid, persistedPlayer.getBalance() + amount);
+                    plugin.getUserController().updatePlayer(uuid, persistedPlayer.getBalance() + amount);
                     // Update inside storage
                     OptEcoPlayer player = this.map.get(uuid);
                     if (player != null) {
@@ -225,14 +225,14 @@ public class OptEcoPlayerManager {
     public void takePlayerBalance(UUID uuid, double amount) throws Exception {
         plugin.getTrackers().describeAsync("take balance of player" + uuid, () -> {
             try {
-                OptEcoPlayer persistedPlayer = plugin.getDatabaseUserController().getPlayerByUUID(uuid)
+                OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)
                         .orElse(new OptEcoPlayerInstance(uuid, 0));
 
                 // If player has not change its balance, no update
                 // Otherwise, change it and update into both storage and database
                 if (amount > 0) {
                     // Update it into database
-                    plugin.getDatabaseUserController().updatePlayer(uuid, persistedPlayer.getBalance() - amount);
+                    plugin.getUserController().updatePlayer(uuid, persistedPlayer.getBalance() - amount);
                     // Update inside storage
                     OptEcoPlayer player = this.map.get(uuid);
                     if (player != null) {
