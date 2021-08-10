@@ -26,6 +26,13 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
             "An option as url parameter to config your database connection."),
 
     ADMINISTRATOR_LOGGING_UPDATE("Administrator.LoggingUpdate", true),
+
+    DATABASE_MONGODB_HOST("Database.MongoDB.Host", "localhost", "An address of MongoDB Server"),
+    DATABASE_MONGODB_PORT("Database.MongoDB.Port", "27017", "A port of MongoDB Server"),
+    DATABASE_MONGODB_USERNAME("Database.MongoDB.Username", "", "Mongodb username, "),
+    DATABASE_MONGODB_PASSWORD("Database.MongoDB.Password", "", "A database name"),
+    DATABASE_MONGODB_DATABASE("Database.MongoDB.Database", "optecoprime", "Mongo datase name"),
+    DATABASE_MONGODB_COLLECTION("Database.MongoDB.Collection", "users", "Mongo collection (table)"),
     ;
 
     private final String path;

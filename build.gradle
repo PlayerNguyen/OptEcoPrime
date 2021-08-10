@@ -43,7 +43,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
-
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
+    compile 'org.mongodb:mongodb-driver:3.6.3'
 }
 
 processResources {

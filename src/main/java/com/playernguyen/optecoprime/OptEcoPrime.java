@@ -1,12 +1,15 @@
 package com.playernguyen.optecoprime;
 
+import com.mongodb.MongoClient;
 import com.playernguyen.dbcollective.Dispatch;
 import com.playernguyen.dbcollective.mysql.MySQLHikariDispatch;
 import com.playernguyen.dbcollective.sqlite.SQLiteDispatch;
 import com.playernguyen.optecoprime.commands.ExecutorOptEco;
 import com.playernguyen.optecoprime.commands.core.CommandRegistryManager;
 import com.playernguyen.optecoprime.database.UserController;
+import com.playernguyen.optecoprime.database.UserControllerMongodb;
 import com.playernguyen.optecoprime.database.UserControllerSQL;
+import com.playernguyen.optecoprime.database.mongodb.MongoDispatch;
 import com.playernguyen.optecoprime.languages.LanguageConfiguration;
 import com.playernguyen.optecoprime.listeners.OptEcoPlayerListener;
 import com.playernguyen.optecoprime.loggers.ConsoleTeller;
@@ -16,7 +19,6 @@ import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
 import com.playernguyen.optecoprime.updater.OptEcoUpdater;
-import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -248,7 +250,6 @@ public final class OptEcoPrime extends JavaPlugin {
         if (this.consoleTeller == null) {
             this.consoleTeller = new ConsoleTeller(this);
         }
-
     }
 
     /**
@@ -330,8 +331,19 @@ public final class OptEcoPrime extends JavaPlugin {
                         }
                     }));
 
-            // setup controller
+            // Setup controller
             setupUserController(new UserControllerSQL(this));
+            return;
+        }
+
+        // Mongodb
+        if (persistDatabaseType.equalsIgnoreCase("mongodb")) {
+            // Register local dispatch
+            MongoDispatch dispatch = new MongoDispatch(this);
+            // Set it to controller
+            setupUserController(new UserControllerMongodb(this, dispatch));
+
+            // Return nothing
             return;
         }
 

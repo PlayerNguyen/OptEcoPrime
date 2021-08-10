@@ -93,7 +93,7 @@ public class UserControllerSQL implements UserController {
         // Look up a player by their uuid
         List<OptEcoPlayer> players = this.findByUUID(uuid);
         if (players.size() == 0) {
-            throw new IllegalStateException("Not found the first player: size " + players.size());
+            throw new IllegalStateException("Not found the first player");
         }
         // Return first value as optional
         return Optional.of(players.get(0));
@@ -104,17 +104,18 @@ public class UserControllerSQL implements UserController {
      *
      * @param uuid    an uuid to put into database
      * @param balance with balance
-     * @return response that system was added or not. (true/false)
      * @throws SQLException an exception that server cannot querying
      */
-    public boolean addPlayer(@NotNull UUID uuid, double balance) throws SQLException {
+    public void addPlayer(@NotNull UUID uuid, double balance) throws SQLException {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
         AtomicBoolean status = new AtomicBoolean();
         plugin.getDispatch().executeUpdate((updatedRows) -> {
                     status.set(updatedRows == 1);
-                }, String.format("INSERT INTO %s (uuid, balance, username) VALUES (?, ?, ?)", userTableName), uuid.toString(),
-                balance, player.getName());
-        return status.get();
+                }, String.format("INSERT INTO %s (uuid, balance, username) VALUES (?, ?, ?)", userTableName),
+                uuid.toString(),
+                balance, player.getName()
+        );
+        status.get();
     }
 
     /**

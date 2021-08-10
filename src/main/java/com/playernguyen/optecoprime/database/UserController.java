@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Controls your data from database via Bukkit server. This class receives all
- * data, push a new item, and even remove something if necessary .However, this
+ * data, push a new item, and even remove something if necessary. However, this
  * controller should be in READ-WRITE (not DELETE) mode.
  */
 public interface UserController {
@@ -26,11 +26,11 @@ public interface UserController {
     /**
      * Insert new player into database by {@link OptEcoPlayer} object.
      *
-     * @param player an {@link OptEcoPlayer} object to put into database.
-     * @return response that system was added or not. (true/false)
+     * @param uuid an player uuid object to put into database.
+     * @param balance a balance to be added, as default
      * @throws Exception any exception when querying
      */
-    public boolean addPlayer(@NotNull UUID uuid, double balance) throws Exception;
+    void addPlayer(@NotNull UUID uuid, double balance) throws Exception;
 
     /**
      * Look up for the existence of that player.
@@ -39,24 +39,26 @@ public interface UserController {
      * @return true when player existed, false otherwise.
      * @throws Exception any exception when querying
      */
-    public boolean hasPlayer(@NotNull UUID uuid) throws Exception;
+    boolean hasPlayer(@NotNull UUID uuid) throws Exception;
 
     /**
      * Update new persist data of player. If player are not found, throws
      * {@link NullPointerException}.
      *
-     * @param player a player to update
+     * @param uuid a player uuid to update
+     * @param balance an amount to update
      * @throws Exception any exception when querying
      * 
      */
-    public void updatePlayer(UUID uuid, double balance) throws Exception;
+    void updatePlayer(UUID uuid, double balance) throws Exception;
 
     /**
      * Update player ignore the existence of player in database. If player are not
      * found in database, create a new one.
      * 
-     * @param player a player data.
-     * @throws Exception an exception
+     * @param uuid a player to update
+     * @param balance an amount to update
+     * @throws Exception any exception when querying
      */
-    public void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception;
+    void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception;
 }
