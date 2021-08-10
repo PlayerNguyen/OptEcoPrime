@@ -1,6 +1,7 @@
 package com.playernguyen.optecoprime.commands;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import com.playernguyen.optecoprime.OptEcoPrime;
@@ -21,12 +22,12 @@ public class SubOptEcoOf extends CommandSub {
 
     private static final String COMMAND_NAME = "look";
     private static final List<String> COMMAND_ALIASES = Arrays.asList("of", "l");
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public SubOptEcoOf(OptEcoPrime plugin, CommandInterface parent) {
         super(parent, COMMAND_NAME,
-                Arrays.asList(CommandParameter.newParameter(plugin.getLanguageConfiguration()
-                        .getWithoutPrefix(LanguageConfigurationModel.COMMAND_PARAMETER_PLAYER_OR_UUID).toString(),
+                Collections.singletonList(CommandParameter.newParameter(plugin.getLanguageConfiguration()
+                                .getWithoutPrefix(LanguageConfigurationModel.COMMAND_PARAMETER_PLAYER_OR_UUID).toString(),
                         true)),
                 plugin.getLanguageConfiguration().getWithoutPrefix(LanguageConfigurationModel.COMMAND_LOOK_DESCRIPTION)
                         .toString(),

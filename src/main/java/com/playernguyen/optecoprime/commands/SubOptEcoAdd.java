@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 public class SubOptEcoAdd extends CommandSub {
     private static final String COMMAND_NAME = "add";
     private static final List<String> COMMAND_ALIASES = Arrays.asList("a");
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public SubOptEcoAdd(OptEcoPrime plugin, CommandInterface parent) {
 

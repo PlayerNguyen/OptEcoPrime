@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 public class SubOptEcoMe extends CommandSub {
 
     private static final String COMMAND_NAME = "me";
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public SubOptEcoMe(OptEcoPrime plugin, CommandInterface parent) {
         super(parent, COMMAND_NAME, Collections.emptyList(), plugin.getLanguageConfiguration()

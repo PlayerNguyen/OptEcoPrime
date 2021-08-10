@@ -3,6 +3,7 @@ package com.playernguyen.optecoprime.commands;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.commands.core.CommandInterface;
@@ -48,7 +49,7 @@ public class SubOptEcoHelp extends CommandSub {
      */
     private void sendHelp(CommandSender sender) {
         SenderUtil.reveal(sender, HEADER);
-        this.getParent().getChildren().forEach(e -> {
+        Objects.requireNonNull(this.getParent()).getChildren().forEach(e -> {
             // Has permission, send message to sender. Otherwise do nothing
             if (sender.hasPermission(e.getPermissions())) {
                 SenderUtil.reveal(sender, PREFIX_GUIDELINE_TEXT + e.toGuidelineText());

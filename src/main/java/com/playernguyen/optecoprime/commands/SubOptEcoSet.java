@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 
 public class SubOptEcoSet extends CommandSub {
     private static final String COMMAND_NAME = "set";
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public SubOptEcoSet(OptEcoPrime plugin, CommandInterface parent) {
         super(parent, COMMAND_NAME, Arrays.asList(

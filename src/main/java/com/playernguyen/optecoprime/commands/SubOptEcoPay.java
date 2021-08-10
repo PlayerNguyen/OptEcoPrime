@@ -23,7 +23,7 @@ public class SubOptEcoPay extends CommandSub {
 
     private static final String COMMAND_NAME = "pay";
     private static final List<String> COMMAND_ALIASES = Arrays.asList("p", "transact");
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public SubOptEcoPay(OptEcoPrime plugin, CommandInterface parent) {
         super(parent, COMMAND_NAME, Arrays.asList(
