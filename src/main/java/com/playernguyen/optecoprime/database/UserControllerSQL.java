@@ -113,7 +113,8 @@ public class UserControllerSQL implements UserController {
                     status.set(updatedRows == 1);
                 }, String.format("INSERT INTO %s (uuid, balance, username) VALUES (?, ?, ?)", userTableName),
                 uuid.toString(),
-                balance, player.getName()
+                balance,
+                player.getName()
         );
         status.get();
     }

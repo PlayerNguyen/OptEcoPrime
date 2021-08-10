@@ -11,6 +11,8 @@ import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import org.bson.Document;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +35,7 @@ public class UserControllerMongodb implements UserController {
         dispatch.getClient(client -> {
             MongoCollection<Document> collection = client
                     .getDatabase(plugin.getSettingConfiguration().getString(SettingConfigurationModel.DATABASE_MONGODB_DATABASE))
-                    .getCollection(plugin.getSettingConfiguration().getString(SettingConfigurationModel.DATABASE_MONGODB_COLLECTION));
+                    .getCollection(plugin.getSettingConfiguration().getString(SettingConfigurationModel.DATABASE_MONGODB_COLLECTION_USER));
             callback.accept(collection);
         });
     }
@@ -65,10 +67,12 @@ public class UserControllerMongodb implements UserController {
 
     @Override
     public void addPlayer(@NotNull UUID uuid, double balance) throws Exception {
+        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
         this.getToCollection(c -> {
             Document document = new Document();
             document.put("_id", uuid.toString());
             document.put("balance", balance);
+            document.put("username", player.getName());
             c.insertOne(document);
         });
     }
@@ -85,19 +89,16 @@ public class UserControllerMongodb implements UserController {
 
     @Override
     public void updatePlayer(UUID uuid, double balance) throws Exception {
-        this.getToCollection(c -> {
-            c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
-                    Updates.set("balance", balance)
-            );
-        });
+        this.getToCollection(c -> c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
+                Updates.set("balance", balance)
+        ));
     }
 
     @Override
     public void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception {
-        this.getToCollection(c -> {
-            Document document = new Document();
-            document.put("balance", balance);
-            c.findOneAndUpdate(Filters.eq("_id", uuid.toString()), document);
-        });
+        this.getToCollection(c -> c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
+                Updates.set("balance", balance)
+        ));
+
     }
 }

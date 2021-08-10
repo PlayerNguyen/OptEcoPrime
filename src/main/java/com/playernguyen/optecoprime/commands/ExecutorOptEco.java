@@ -6,6 +6,7 @@ import com.playernguyen.optecoprime.commands.core.CommandInterface;
 import com.playernguyen.optecoprime.commands.core.CommandParameter;
 import com.playernguyen.optecoprime.commands.core.CommandResult;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
+import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -48,10 +49,16 @@ public class ExecutorOptEco extends CommandExecutor {
         this.getChildren().add(new SubOptEcoOf(plugin, this));
         this.getChildren().add(new SubOptEcoPay(plugin, this));
         this.getChildren().add(new SubOptEcoReload(plugin, this));
+        // For developers
+        if (plugin.getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean()) {
+            this.getChildren().add(new SubOptEcoPerformance(plugin, this));
+        }
+        // Permisisions reveal and register
         this.getChildren().forEach(e -> {
-            plugin.getTrackers().describeNothing(e.getName() + " -> " + e.getPermissions());
-            // Register permissions, for some plugins like LuckPerm literally work
+            // Registers permissions, for some plugins like LuckPerm literally work
             Bukkit.getPluginManager().addPermission(new Permission(e.getPermissions()));
+            // Reveals
+            plugin.getTrackers().describeNothing(e.getName() + " -> " + e.getPermissions());
         });
     }
 
