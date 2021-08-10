@@ -1,9 +1,5 @@
 package com.playernguyen.optecoprime.commands;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.commands.core.CommandExecutor;
 import com.playernguyen.optecoprime.commands.core.CommandInterface;
@@ -11,8 +7,13 @@ import com.playernguyen.optecoprime.commands.core.CommandParameter;
 import com.playernguyen.optecoprime.commands.core.CommandResult;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.utils.SenderUtil;
-
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.permissions.Permission;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ExecutorOptEco
@@ -48,7 +49,9 @@ public class ExecutorOptEco extends CommandExecutor {
         this.getChildren().add(new SubOptEcoPay(plugin, this));
         this.getChildren().add(new SubOptEcoReload(plugin, this));
         this.getChildren().forEach(e -> {
-            plugin.getTrackers().describeNothing(e.getName() + " -> " +e.getPermissions());
+            plugin.getTrackers().describeNothing(e.getName() + " -> " + e.getPermissions());
+            // Register permissions, for some plugins like LuckPerm literally work
+            Bukkit.getPluginManager().addPermission(new Permission(e.getPermissions()));
         });
     }
 
@@ -78,7 +81,7 @@ public class ExecutorOptEco extends CommandExecutor {
 
     /**
      * Send a help of OptEco command to player
-     * 
+     *
      * @param sender a sender to send
      */
     private void sendHelp(CommandSender sender) {
@@ -100,7 +103,7 @@ public class ExecutorOptEco extends CommandExecutor {
 
     @Override
     public List<String> onTab(CommandSender sender, List<String> params) {
-        
+
         return CHILDREN_NAME;
     }
 
@@ -125,7 +128,7 @@ public class ExecutorOptEco extends CommandExecutor {
                 break;
             }
             case MISSING_ARGUMENTS: {
-                
+
                 plugin.getLanguageConfiguration().sendWithPrefix(sender,
                         LanguageConfigurationModel.COMMAND_SENDER_MISSING_ARGUMENT);
                 break;
