@@ -107,15 +107,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      * {@inheritDoc}
      */
     @Override
-    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-
-        // Check permission, whether right, call onExecute
-        if (!sender.hasPermission(getPermissions())) {
-
-            // Handle a result
-            this.onNoPermissionAccess(sender, Arrays.asList(args));
-            return true;
-        }
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         // Has no permission to access command
         this.onReceiveResult(onExecute(sender, Arrays.asList(args)), sender,
