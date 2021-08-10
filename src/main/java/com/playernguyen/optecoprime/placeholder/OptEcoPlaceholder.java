@@ -1,18 +1,16 @@
 package com.playernguyen.optecoprime.placeholder;
 
-import java.util.concurrent.ExecutionException;
-
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
-
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Imports PlaceholderAPI plugin to register a plugin

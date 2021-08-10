@@ -1,14 +1,14 @@
 package com.playernguyen.optecoprime.updater;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.playernguyen.optecoprime.OptEcoPrime;
+
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.function.Consumer;
-import javax.net.ssl.HttpsURLConnection;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.playernguyen.optecoprime.OptEcoPrime;
 
 /**
  * Contains method to request and check for new update.
@@ -27,9 +27,8 @@ public class OptEcoUpdater {
      * Checks for new update.
      * 
      * @param onNewUpdate a callback when plugin has new update
-     * @throws Exception
+     * @throws Exception errors when update
      */
-
     public void checkForUpdate(Consumer<String> onNewUpdate) throws Exception {
         plugin.getExecutorService().submit(() -> {
             try {

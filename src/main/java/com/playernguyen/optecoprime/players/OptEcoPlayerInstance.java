@@ -1,8 +1,8 @@
 package com.playernguyen.optecoprime.players;
 
-import java.util.UUID;
-
 import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 /**
  * Default instance of player persist player data

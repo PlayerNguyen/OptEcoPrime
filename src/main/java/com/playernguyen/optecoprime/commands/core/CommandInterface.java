@@ -1,11 +1,11 @@
 package com.playernguyen.optecoprime.commands.core;
 
+import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A command interface.

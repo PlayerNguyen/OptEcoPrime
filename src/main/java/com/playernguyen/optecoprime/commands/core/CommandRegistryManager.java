@@ -1,11 +1,11 @@
 package com.playernguyen.optecoprime.commands.core;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
 
 /**
  * CommandRegistryManager helps you to register your command without plugin.yml.

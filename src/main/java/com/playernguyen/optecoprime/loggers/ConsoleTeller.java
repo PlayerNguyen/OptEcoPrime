@@ -1,7 +1,6 @@
 package com.playernguyen.optecoprime.loggers;
 
 import com.playernguyen.optecoprime.utils.SenderUtil.Teller;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

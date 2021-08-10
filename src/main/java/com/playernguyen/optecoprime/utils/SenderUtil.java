@@ -1,7 +1,6 @@
 package com.playernguyen.optecoprime.utils;
 
 import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
-
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;

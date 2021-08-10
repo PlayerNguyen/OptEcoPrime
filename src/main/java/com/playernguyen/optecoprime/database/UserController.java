@@ -1,11 +1,10 @@
 package com.playernguyen.optecoprime.database;
 
+import com.playernguyen.optecoprime.players.OptEcoPlayer;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Optional;
 import java.util.UUID;
-
-import com.playernguyen.optecoprime.players.OptEcoPlayer;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Controls your data from database via Bukkit server. This class receives all

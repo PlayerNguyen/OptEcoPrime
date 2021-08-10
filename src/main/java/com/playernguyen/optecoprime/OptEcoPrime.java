@@ -1,6 +1,5 @@
 package com.playernguyen.optecoprime;
 
-import com.mongodb.MongoClient;
 import com.playernguyen.dbcollective.Dispatch;
 import com.playernguyen.dbcollective.mysql.MySQLHikariDispatch;
 import com.playernguyen.dbcollective.sqlite.SQLiteDispatch;
@@ -340,6 +339,8 @@ public final class OptEcoPrime extends JavaPlugin {
         if (persistDatabaseType.equalsIgnoreCase("mongodb")) {
             // Register local dispatch
             MongoDispatch dispatch = new MongoDispatch(this);
+            // Connection test
+            dispatch.getClient(client -> { /* Doing nothing here */ });
             // Set it to controller
             setupUserController(new UserControllerMongodb(this, dispatch));
 

@@ -5,12 +5,14 @@ import com.playernguyen.optecoprime.commands.core.CommandInterface;
 import com.playernguyen.optecoprime.commands.core.CommandParameter;
 import com.playernguyen.optecoprime.commands.core.CommandResult;
 import com.playernguyen.optecoprime.commands.core.CommandSub;
-import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
 import com.playernguyen.optecoprime.utils.NumberUtil;
 import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.command.CommandSender;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public class SubOptEcoPerformance extends CommandSub {
     private static final String COMMAND_GUIDELINE = "Creates a performance";

@@ -1,12 +1,12 @@
 package com.playernguyen.optecoprime.commands.core;
 
+import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class CommandSub implements CommandInterface {
     private final String name;

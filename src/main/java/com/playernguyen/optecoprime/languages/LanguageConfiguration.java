@@ -4,7 +4,6 @@ import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.configurations.ConfigurationAbstract;
 import com.playernguyen.optecoprime.utils.ReplaceableString;
 import com.playernguyen.optecoprime.utils.SenderUtil;
-
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 

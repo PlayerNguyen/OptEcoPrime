@@ -1,11 +1,11 @@
 package com.playernguyen.optecoprime.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ReplaceableString represents a string that can replace. Can use with

@@ -1,10 +1,5 @@
 package com.playernguyen.optecoprime.commands;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.commands.core.CommandInterface;
 import com.playernguyen.optecoprime.commands.core.CommandResult;
@@ -12,9 +7,13 @@ import com.playernguyen.optecoprime.commands.core.CommandSub;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.utils.SenderUtil.Teller;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class SubOptEcoMe extends CommandSub {
 
