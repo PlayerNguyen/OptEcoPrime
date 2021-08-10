@@ -36,6 +36,8 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_PAY_ONESELF_PAY("Command.Pay.OneselfPay", "&cYou cannot pay to yourself."),
     COMMAND_PAY_BALANCE_NOT_ENOUGH("Command.Pay.BalanceNotEnough", "&cYou have not have enough in your account to pay"),
 
+    COMMAND_RELOAD_DESCRIPTION("Command.Reload.Description", "Reload your configurations of OptEcoPrime"),
+
     COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),
     COMMAND_RESPONSE_INVALID_NUMBER("Command.GeneralResponse.InvalidNumber",
             "&cA number that you inputted was invalid."),
@@ -50,7 +52,10 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_PARAMETER_PLAYER("Command.Parameter.Player", "player"),
     COMMAND_PARAMETER_AMOUNT("Command.Parameter.Amount", "amount"),
 
-    PREFERENCES_SUB_COMMAND("Preferences.SubCommand", "sub-command"),;
+    PREFERENCES_SUB_COMMAND("Preferences.SubCommand", "sub-command"),
+
+    EVENT_UPDATE_BALANCE_MESSAGE("Event.UpdateBalanceMessage", "&6Your current balance now is %amount% %currency_symbol%")
+    ;
 
     private final String path;
     private final Object instance;

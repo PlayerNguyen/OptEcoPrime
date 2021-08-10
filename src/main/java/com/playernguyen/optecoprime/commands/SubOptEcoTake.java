@@ -50,7 +50,7 @@ public class SubOptEcoTake extends CommandSub {
         }
 
         // Target finder
-        UUID uuid = null;
+        UUID uuid;
 
         // Is not an uuid
         if (!StringUtil.isUUID(params.get(0))) {

@@ -39,7 +39,7 @@ public abstract class OptEcoEventAbstract extends Event implements Cancellable {
      *
      * @return a handler list
      */
-    public static HandlerList getHanderList() {
+    public static HandlerList getHandlerList() {
         return handerList;
     }
 

@@ -5,13 +5,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class CommandExecutor extends BukkitCommand implements CommandInterface, TabExecutor {
     private final Plugin plugin;
@@ -42,7 +39,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      * {@inheritDoc}
      */
     @Override
-    public List<String> getAliases() {
+    public @NotNull List<String> getAliases() {
         // Aliases of executor can be replaced in plugin.yml
         return aliases;
     }
@@ -53,7 +50,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      * @return a unique and immutable name.
      */
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
@@ -102,7 +99,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      * {@inheritDoc}
      */
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         return onTab(sender, Arrays.asList(args));
     }
 
@@ -110,7 +107,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      * {@inheritDoc}
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         // Check permission, whether right, call onExecute
         if (!sender.hasPermission(getPermissions())) {
@@ -158,11 +155,11 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
      */
     @Override
     public String getPermissions() {
-        return plugin.getName().concat(".command.").concat(this.getName());
+        return plugin.getName().concat(".command").toLowerCase();
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, String[] args) {
         return onCommand(sender, null, commandLabel, args);
     }
 }

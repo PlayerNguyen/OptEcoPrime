@@ -1,6 +1,5 @@
 package com.playernguyen.optecoprime.managers;
 
-import com.google.common.base.Preconditions;
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
@@ -15,10 +14,9 @@ import java.util.concurrent.ExecutionException;
 /**
  * A storage that enhances function such as add, remove, ... As a class, this
  * class is easy to modify, manager and extensible for many features. <br>
- * 
+ * <p>
  * Generally, this class has a map which contains persisted data inside. and
  * control data between database and server
- *
  */
 public class OptEcoPlayerManager {
     private final Map<UUID, OptEcoPlayer> map = new HashMap<>();
@@ -119,7 +117,7 @@ public class OptEcoPlayerManager {
 
     /**
      * Request player information from database.
-     * 
+     *
      * @param uuid an unique id of that player
      * @return a player class
      * @throws NullPointerException not found player
@@ -132,7 +130,7 @@ public class OptEcoPlayerManager {
 
     /**
      * Add new player by the unique id by request player in database.
-     * 
+     *
      * @param uuid an uuid.
      * @throws Exception            exception
      * @throws NullPointerException not found player in database
@@ -147,7 +145,7 @@ public class OptEcoPlayerManager {
 
     /**
      * Set a balance to player in both database and persist storage.
-     * 
+     *
      * @param uuid    an unique id of player to set.
      * @param balance a new balance to set.
      * @throws Exception an exception when cannot receive a value in database.
@@ -179,7 +177,7 @@ public class OptEcoPlayerManager {
      * Look up and add more balance to player account from database. Whether player
      * not existed in database, create a new player with balance is zero and add new
      * amount.
-     * 
+     *
      * @param uuid   a unique id of that player
      * @param amount an amount to add
      * @throws Exception             an exception when system cannot looked up
@@ -217,7 +215,7 @@ public class OptEcoPlayerManager {
      * Look up and take more balance to player account from database. Whether player
      * not existed in database, create a new player with balance is zero and take it
      * out.
-     * 
+     *
      * @param uuid   an unique id of player
      * @param amount an amount to take
      * @throws Exception             an exception when system cannot looked up
@@ -253,14 +251,14 @@ public class OptEcoPlayerManager {
     /**
      * Transacts from player to player (pay someone). This method will take a
      * balance from `from` target and add this to `to` target. <br>
-     * 
+     * <p>
      * NOTE: from and to parameter must not be equaled. Otherwise throw an
      * IllegalStateException.
-     * 
-     * @param from
-     * @param to
-     * @param amount
-     * @throws Exception
+     *
+     * @param from   a player from who
+     * @param to     a player to who
+     * @param amount an amount to transact
+     * @throws Exception an exception
      */
     public void transact(UUID from, UUID to, double amount) throws Exception {
         // Cannot send equivalent target

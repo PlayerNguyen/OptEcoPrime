@@ -2,6 +2,8 @@ package com.playernguyen.optecoprime.events;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
+import com.playernguyen.optecoprime.utils.SenderUtil;
+import org.bukkit.Bukkit;
 
 /**
  * An event that triggers when player balance is increased or decreased.
@@ -42,6 +44,7 @@ public class OptEcoBalanceChangeEvent extends OptEcoEventAbstract {
 
         // Recent and current balance cannot be equivalent
         if (recentBalance == currentBalance) {
+            SenderUtil.Teller.init(Bukkit.getConsoleSender()).next(String.valueOf(recentBalance)).next(String.valueOf(currentBalance));
             throw new IllegalStateException("recent and current balance cannot be equivalent");
         }
     }

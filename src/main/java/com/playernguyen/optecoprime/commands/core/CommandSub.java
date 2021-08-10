@@ -2,6 +2,7 @@ package com.playernguyen.optecoprime.commands.core;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.bukkit.command.CommandSender;
@@ -56,7 +57,7 @@ public abstract class CommandSub implements CommandInterface {
 
     @Override
     public String getPermissions() {
-        return this.getParent().getPermissions().concat(".").concat(getName());
+        return Objects.requireNonNull(this.getParent()).getPermissions().concat(".").concat(getName());
     }
 
     @Override

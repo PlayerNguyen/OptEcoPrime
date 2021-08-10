@@ -1,11 +1,5 @@
 package com.playernguyen.optecoprime;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import com.playernguyen.dbcollective.Dispatch;
 import com.playernguyen.dbcollective.mysql.MySQLHikariDispatch;
 import com.playernguyen.dbcollective.sqlite.SQLiteDispatch;
@@ -22,11 +16,17 @@ import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
 import com.playernguyen.optecoprime.updater.OptEcoUpdater;
-
+import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A core for OptEcoPrime plugin. This class registers and handles anything.
@@ -40,7 +40,6 @@ public final class OptEcoPrime extends JavaPlugin {
      * Pool size of ExecutorService
      */
     private static final int THREAD_POOL_SIZE = 3;
-
     /**
      * Executor to execute multi thread services.
      */
@@ -102,27 +101,49 @@ public final class OptEcoPrime extends JavaPlugin {
             setupUpdater();
             createWatermark();
         } catch (Exception e) {
-            // Handle error. Of course, disable the plugin.
+            // Handle error and then, disable plugin
+            e.printStackTrace();
+
+            // Disable plugin
+            this.getPluginLoader().disablePlugin(this);
+        }
+    }
+
+    public void reload() {
+        try {
+            setupConfiguration();
+            setupLanguage();
+            setupDatabase();
+            setupHook();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Create a watermark or logo. Making my plugin prettier.
+     */
     private void createWatermark() {
-        consoleTeller.send("&7|-------------------------|").send("&7   &cOptEco&6Prime ")
-                .send("&7     &7version&c " + this.getDescription().getVersion()).send("&7     &7by &cPlayer_Nguyen ")
+        consoleTeller
+                .send("&7|-------------------------|")
+                .send("&7   &cOptEco&6Prime ")
+                .send("&7     &7version&c " + this.getDescription().getVersion())
+                .send("&7     &7by &cPlayer_Nguyen ")
                 .send("&7|-------------------------|");
     }
 
     /**
      * Check for new updated version via Github
-     * 
+     *
      * @throws Exception an exception
      */
     private void setupUpdater() throws Exception {
+        // Not found an updater, update
         if (updater == null) {
             this.updater = new OptEcoUpdater(this);
         }
 
+        // Check for update
         updater.checkForUpdate((version) -> {
             getConsoleTeller().send("&aNew update released: " + version);
         });
@@ -140,7 +161,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * Set up an executor for this plugin
-     * 
+     *
      * @throws IllegalAccessException   illegal access when setup
      * @throws SecurityException        no private access to register Bukkit API
      * @throws NoSuchFieldException     no field in Bukkit API class to register
@@ -164,7 +185,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * A configuration language
-     * 
+     *
      * @throws Exception any exception will throw
      */
     private void setupLanguage() throws Exception {
@@ -192,7 +213,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * A storage contains data of player as cache
-     * 
+     *
      * @throws NullPointerException not found a class
      * @throws Exception            any exception that will throw
      */
@@ -211,7 +232,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * A database user controller (to controll a database)
-     * 
+     *
      * @param controller a controller
      */
     private void setupUserController(UserController controller) {
@@ -241,7 +262,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * Set up and initialize a database
-     * 
+     *
      * @throws ClassNotFoundException database driver not found
      */
     private void setupDatabase() throws ClassNotFoundException {
@@ -252,13 +273,10 @@ public final class OptEcoPrime extends JavaPlugin {
         // SQLite initialize
         if (persistDatabaseType.equalsIgnoreCase("sqlite")) {
             this.getConsoleTeller().send("&6Detecting sqlite database type, loading files");
-            // File sqliteFile = new File(this.getDataFolder(),
-            // this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME).asString());
             this.dispatch = new SQLiteDispatch(
                     this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME).asString());
             this.dispatch.setVerbose(getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean());
             this.dispatch.setLogger(this.getLogger());
-            // this.databaseHoster = new DatabaseHosterSQLite(optionsSQLite);
 
             // Set up tables by run async task
             Bukkit.getScheduler().runTaskAsynchronously(this,
@@ -323,7 +341,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * Set up a configuration file (Config.yml)
-     * 
+     *
      * @throws Exception any exception
      */
     private void setupConfiguration() throws Exception {
@@ -363,7 +381,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * Dispatch a database
-     * 
+     *
      * @return a database establish object
      */
     public Dispatch getDispatch() {
@@ -399,7 +417,6 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     /**
-     *
      * @return a user tanker caches many users information
      */
     public OptEcoPlayerManager getPlayerManager() {
@@ -407,7 +424,6 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     /**
-     * 
      * @return a language configuration instance
      */
     public LanguageConfiguration getLanguageConfiguration() {
@@ -416,7 +432,7 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * A console teller bares some method to prettier the history log
-     * 
+     *
      * @return a console teller class instance
      */
     public ConsoleTeller getConsoleTeller() {

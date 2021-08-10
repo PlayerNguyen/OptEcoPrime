@@ -15,7 +15,7 @@ public class LanguageConfiguration extends ConfigurationAbstract<LanguageConfigu
     private static final String SEPARATOR_CHAR = " ";
     private static final String DIRECTORY_NAME = "Language";
     private static final String FILE_NAME = "Language.yml";
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public LanguageConfiguration(OptEcoPrime plugin) throws Exception {
         super(plugin, FILE_NAME, LanguageConfigurationModel.class, DIRECTORY_NAME);

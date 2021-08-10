@@ -25,6 +25,7 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
     DATABASE_MYSQL_OPTIONS("Database.MySQl.Options", "useSSL=false",
             "An option as url parameter to config your database connection."),
 
+    ADMINISTRATOR_LOGGING_UPDATE("Administrator.LoggingUpdate", true),
     ;
 
     private final String path;
