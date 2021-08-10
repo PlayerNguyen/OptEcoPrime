@@ -42,7 +42,7 @@ public class SubOptEcoReload extends CommandSub {
     public CommandResult onExecute(CommandSender sender, List<String> params) {
         // Reload plugin
         plugin.reload();
-        SenderUtil.Teller.init(Bukkit.getConsoleSender())
+        SenderUtil.Teller.init(sender)
                 .next("&aSuccessfully reload &6OptEcoPrime &aversion " + this.plugin.getDescription().getVersion());
 
         // Nothing
