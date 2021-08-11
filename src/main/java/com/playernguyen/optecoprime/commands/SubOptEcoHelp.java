@@ -23,13 +23,16 @@ public class SubOptEcoHelp extends CommandSub {
     private static final String PREFIX_GUIDELINE_TEXT = "&c&l/point ";
 
     private static final String COMMAND_NAME = "help";
-    private static final List<String> COMMAND_ALIASES = Arrays.asList("h");
+    private static final List<String> COMMAND_ALIASES = Collections.singletonList("h");
     private static final List<CommandParameter> COMMAND_PARAMETER_LIST = Collections.emptyList();
 
     public SubOptEcoHelp(OptEcoPrime plugin, CommandInterface parent) {
-        super(parent, COMMAND_NAME, COMMAND_PARAMETER_LIST, plugin.getLanguageConfiguration()
-                .getWithoutPrefix(LanguageConfigurationModel.COMMAND_HELP_DESCRIPTION).toString(), COMMAND_ALIASES);
-
+        super(parent,
+                COMMAND_NAME,
+                COMMAND_PARAMETER_LIST,
+                plugin.getLanguageConfiguration()
+                        .getWithoutPrefix(LanguageConfigurationModel.COMMAND_HELP_DESCRIPTION).toString(),
+                COMMAND_ALIASES);
     }
 
     @Override
@@ -54,6 +57,11 @@ public class SubOptEcoHelp extends CommandSub {
                 SenderUtil.reveal(sender, PREFIX_GUIDELINE_TEXT + e.toGuidelineText());
             }
         });
+    }
+
+    @Override
+    public String getPermissions() {
+        return super.getPermissions();
     }
 
     @Override

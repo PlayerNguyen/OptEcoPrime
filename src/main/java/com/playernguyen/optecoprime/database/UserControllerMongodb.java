@@ -31,7 +31,7 @@ public class UserControllerMongodb implements UserController {
         this.dispatch = dispatch;
     }
 
-    public void getToCollection(Consumer<MongoCollection<Document>> callback) {
+    private void getToCollection(Consumer<MongoCollection<Document>> callback) {
         dispatch.getClient(client -> {
             MongoCollection<Document> collection = client
                     .getDatabase(plugin.getSettingConfiguration().getString(SettingConfigurationModel.DATABASE_MONGODB_DATABASE))
@@ -40,7 +40,7 @@ public class UserControllerMongodb implements UserController {
         });
     }
 
-    public List<OptEcoPlayer> fetchAllUsers() {
+    private List<OptEcoPlayer> fetchAllUsers() {
         // Create empty list of player first
         List<OptEcoPlayer> players = new ArrayList<>();
 
@@ -60,11 +60,17 @@ public class UserControllerMongodb implements UserController {
         return players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<OptEcoPlayer> getPlayerByUUID(@NotNull UUID uuid) throws Exception {
         return Optional.ofNullable(fetchAllUsers().get(0));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPlayer(@NotNull UUID uuid, double balance) throws Exception {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
@@ -77,6 +83,9 @@ public class UserControllerMongodb implements UserController {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasPlayer(@NotNull UUID uuid) throws Exception {
         AtomicBoolean atomicBoolean = new AtomicBoolean(false);
@@ -87,6 +96,9 @@ public class UserControllerMongodb implements UserController {
         return atomicBoolean.get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updatePlayer(UUID uuid, double balance) throws Exception {
         this.getToCollection(c -> c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
@@ -94,11 +106,4 @@ public class UserControllerMongodb implements UserController {
         ));
     }
 
-    @Override
-    public void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception {
-        this.getToCollection(c -> c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
-                Updates.set("balance", balance)
-        ));
-
-    }
 }

@@ -94,7 +94,7 @@ public class OptEcoPlayerManager {
         return plugin.getTrackers().describeTankerAsync("get player from storage by id " + uuid, () -> {
             OptEcoPlayer persistedPlayer = map.get(uuid);
 
-            // Not existed in map
+            // Not existed in map, will not put and create no
             if (persistedPlayer == null) {
                 return requestPlayerFromDatabase(uuid);
             }
@@ -102,13 +102,11 @@ public class OptEcoPlayerManager {
             // If the data was old, retrieve new data and modify object
             if (System.currentTimeMillis() - persistedPlayer.getLastUpdate() >= plugin.getSettingConfiguration()
                     .get(SettingConfigurationModel.USER_PERSIST_DATA_DURATION).asLong()) {
-
+                // Replace player data
+                OptEcoPlayer replacePlayer = requestPlayerFromDatabase(uuid);
+                persistedPlayer.setBalance(replacePlayer.getBalance());
+                persistedPlayer.setLastUpdate(replacePlayer.getLastUpdate());
             }
-
-            // Replace player data
-            OptEcoPlayer replacePlayer = requestPlayerFromDatabase(uuid);
-            persistedPlayer.setBalance(replacePlayer.getBalance());
-            persistedPlayer.setLastUpdate(replacePlayer.getLastUpdate());
 
             // Then return an object to user
             return persistedPlayer;
@@ -270,8 +268,10 @@ public class OptEcoPlayerManager {
 
         // Add `to` target
         addPlayerBalance(to, amount);
+    }
 
-        // Create transaction records method (todo)
+    public boolean containsPlayer(@NotNull UUID uuid) {
+        return this.map.containsKey(uuid);
     }
 
 }

@@ -3,6 +3,8 @@ package com.playernguyen.optecoprime;
 import com.playernguyen.dbcollective.Dispatch;
 import com.playernguyen.dbcollective.mysql.MySQLHikariDispatch;
 import com.playernguyen.dbcollective.sqlite.SQLiteDispatch;
+import com.playernguyen.optecoprime.api.OptEcoAPI;
+import com.playernguyen.optecoprime.api.OptEcoAPIInstance;
 import com.playernguyen.optecoprime.commands.ExecutorOptEco;
 import com.playernguyen.optecoprime.commands.core.CommandRegistryManager;
 import com.playernguyen.optecoprime.database.UserController;
@@ -18,6 +20,7 @@ import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
 import com.playernguyen.optecoprime.updater.OptEcoUpdater;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -41,6 +44,10 @@ public final class OptEcoPrime extends JavaPlugin {
      * Pool size of ExecutorService
      */
     private static final int THREAD_POOL_SIZE = 3;
+    /**
+     * Statistic id of bStats
+     */
+    private static final int BSTATS_ID = 12394;
     /**
      * Executor to execute multi thread services.
      */
@@ -82,6 +89,14 @@ public final class OptEcoPrime extends JavaPlugin {
      * Check for update service class
      */
     private OptEcoUpdater updater;
+    /**
+     * Application interface, for developers to interact with OptEcoPrime
+     */
+    private OptEcoAPI applicationInterface;
+    /**
+     * Metrics for statistic
+     */
+    private Metrics metrics;
 
     /**
      * When plugin enable or start, loading up anything. Any error will stop loading
@@ -100,6 +115,8 @@ public final class OptEcoPrime extends JavaPlugin {
             setupCommands();
             setupHook();
             setupUpdater();
+            setupAPI();
+            setupStatistic();
             createWatermark();
         } catch (Exception e) {
             // Handle error and then, disable plugin
@@ -110,6 +127,27 @@ public final class OptEcoPrime extends JavaPlugin {
         }
     }
 
+    /**
+     * Statistic integrates
+     */
+    private void setupStatistic() {
+        if (this.metrics == null) {
+            this.metrics = new Metrics(this, BSTATS_ID);
+        }
+    }
+
+    /**
+     * An API for developers
+     */
+    private void setupAPI() {
+        if (this.applicationInterface == null) {
+            this.applicationInterface = new OptEcoAPIInstance(this);
+        }
+    }
+
+    /**
+     * A reload function to reload this plugin
+     */
     public void reload() {
         try {
             setupConfiguration();
@@ -450,5 +488,13 @@ public final class OptEcoPrime extends JavaPlugin {
      */
     public ConsoleTeller getConsoleTeller() {
         return consoleTeller;
+    }
+
+    /**
+     * An application inteface instance, to interact with this plugin
+     * @return an OptEcoAPI class
+     */
+    public OptEcoAPI getApplicationInterface() {
+        return applicationInterface;
     }
 }

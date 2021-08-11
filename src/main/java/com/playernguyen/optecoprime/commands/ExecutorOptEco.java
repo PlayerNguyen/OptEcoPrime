@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ExecutorOptEco
+ * A default class to extend as command executor
+ *
  */
 public class ExecutorOptEco extends CommandExecutor {
 
@@ -25,7 +26,7 @@ public class ExecutorOptEco extends CommandExecutor {
     private static final String EXECUTOR_GUIDELINE = "An OptEco plugin commands";
     private static final String HEADER = "&7--------- &c&lOptEcoPrime &7---------";
     private static final String PREFIX_GUIDELINE_TEXT = "&c&l/point ";
-    private final List<String> CHILDREN_NAME = this.getChildren().stream().map(e -> e.getName())
+    private final List<String> CHILDREN_NAME = this.getChildren().stream().map(CommandInterface::getName)
             .collect(Collectors.toList());
     private final OptEcoPrime plugin;
 

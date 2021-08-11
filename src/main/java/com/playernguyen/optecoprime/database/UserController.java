@@ -51,13 +51,4 @@ public interface UserController {
      */
     void updatePlayer(UUID uuid, double balance) throws Exception;
 
-    /**
-     * Update player ignore the existence of player in database. If player are not
-     * found in database, create a new one.
-     * 
-     * @param uuid a player to update
-     * @param balance an amount to update
-     * @throws Exception any exception when querying
-     */
-    void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception;
 }

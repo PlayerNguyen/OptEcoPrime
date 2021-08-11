@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.playernguyen'
-version = '1.0-SNAPSHOT'
+version = '1.0.0-alpha'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -36,6 +36,7 @@ dependencies {
     implementation 'me.clip:placeholderapi:2.10.10'
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
     compile 'com.github.PlayerNguyen:db-collective:R1.0.2'
+    compile 'org.bstats:bstats-bukkit:2.2.1'
 
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:2.3.2'

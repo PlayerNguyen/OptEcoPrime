@@ -29,16 +29,17 @@ public interface OptEcoPlayer {
     void setBalance(double balance);
 
     /**
-     * A last update of this player object, to check a player
-     *  object is out-of-date or not
+     * An expires time of this player object, to check a player
+     *  object is out-of-date or not.
      *
      * @return a last update long
      */
     long getLastUpdate();
 
     /**
-     * Set a new last update
-     * @param lastUpdate
+     * Set a new expires for player
+     *
+     * @param lastUpdate new expires time for
      */
     void setLastUpdate(long lastUpdate);
 

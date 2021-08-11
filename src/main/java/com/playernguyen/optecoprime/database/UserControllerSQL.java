@@ -81,14 +81,9 @@ public class UserControllerSQL implements UserController {
     }
 
     /**
-     * Retrieve a player data by a unique ID.
-     *
-     * @param uuid a uuid to look up
-     * @return nullable optional which contains first value of that player.
-     * @throws SQLException an exception that server cannot querying
-     * @see com.playernguyen.optecoprime.trackers.OptEcoTrackers#describeAsync(String,
-     * Callable)
+     * {@inheritDoc}
      */
+    @Override
     public Optional<OptEcoPlayer> getPlayerByUUID(@NotNull UUID uuid) throws SQLException {
         // Look up a player by their uuid
         List<OptEcoPlayer> players = this.findByUUID(uuid);
@@ -100,12 +95,9 @@ public class UserControllerSQL implements UserController {
     }
 
     /**
-     * Insert new player into database by {@link OptEcoPlayer} object.
-     *
-     * @param uuid    an uuid to put into database
-     * @param balance with balance
-     * @throws SQLException an exception that server cannot querying
+     * {@inheritDoc}
      */
+    @Override
     public void addPlayer(@NotNull UUID uuid, double balance) throws SQLException {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
         AtomicBoolean status = new AtomicBoolean();
@@ -120,28 +112,17 @@ public class UserControllerSQL implements UserController {
     }
 
     /**
-     * Look up for the existence of that player.
-     *
-     * @param uuid a uuid to look up that player are existed
-     * @return true when player existed, false otherwise.
-     * @throws SQLException an exception that server cannot querying
-     * @see com.playernguyen.optecoprime.trackers.OptEcoTrackers#describeAsync(String,
-     * Callable)
+     * {@inheritDoc}
      */
+    @Override
     public boolean hasPlayer(@NotNull UUID uuid) throws SQLException {
         return findByUUID(uuid).size() != 0;
     }
 
     /**
-     * Update new persist data of player.
-     *
-     * @param uuid    a unique id to update
-     * @param balance a balance to update
-     * @throws SQLException         an exception that server cannot querying
-     * @throws NullPointerException not found a player in database
-     * @see com.playernguyen.optecoprime.trackers.OptEcoTrackers#describeAsync(String,
-     * Callable)
+     * {@inheritDoc}
      */
+    @Override
     public void updatePlayer(UUID uuid, double balance) throws NullPointerException, SQLException {
         OptEcoPlayer persistedPlayer = this.getPlayerByUUID(uuid).orElseThrow(() -> new NullPointerException(
                 "cannot update non-existed database player causes player not found " + uuid));
