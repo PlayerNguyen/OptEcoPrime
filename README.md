@@ -1,4 +1,5 @@
 [![Build](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml/badge.svg)](https://github.com/PlayerNguyen/OptEcoPrime/actions/workflows/gradle.yml)
+[![](https://jitpack.io/v/PlayerNguyen/OptEcoPrime.svg)](https://jitpack.io/#PlayerNguyen/OptEcoPrime)
 # Introduction
 ![alt text](/assets/OptEcoPrimeBanner.png "Big OptEcoPrime banner")
 
