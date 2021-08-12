@@ -20,7 +20,6 @@ import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
 import com.playernguyen.optecoprime.updater.OptEcoUpdater;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
