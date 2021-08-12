@@ -33,4 +33,4 @@ More extension can be found here:
 # Contribute
 Once again, thanks for supporting our services. You have any issue with the plugin, or/and even want to post new update to it. Please create an issues.
 
-[![](https://bstats.org/signatures/bukkit/OptEcoPrime.svg)
+[](https://bstats.org/signatures/bukkit/OptEcoPrime.svg)
