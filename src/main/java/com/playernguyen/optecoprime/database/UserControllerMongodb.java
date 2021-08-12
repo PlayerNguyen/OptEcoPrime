@@ -7,6 +7,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.database.mongodb.MongoDispatch;
+import com.playernguyen.optecoprime.events.OptEcoBalanceChangeEvent;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.players.OptEcoPlayerInstance;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
@@ -101,6 +102,16 @@ public class UserControllerMongodb implements UserController {
      */
     @Override
     public void updatePlayer(UUID uuid, double balance) throws Exception {
+        OptEcoPlayer persistedPlayer = this.getPlayerByUUID(uuid).orElseThrow(() -> new NullPointerException(
+                "cannot update non-existed database player causes player not found " + uuid));
+
+        // Call event after update
+        Bukkit.getPluginManager().callEvent(
+                new OptEcoBalanceChangeEvent(plugin, persistedPlayer, persistedPlayer.getBalance(), balance));
+
+        plugin.getTrackers().describeNothing(
+                String.format("Update &c[%s] &m%s &8-> &e%s", uuid, persistedPlayer.getBalance(), balance));
+        // Then update
         this.getToCollection(c -> c.findOneAndUpdate(Filters.eq("_id", uuid.toString()),
                 Updates.set("balance", balance)
         ));

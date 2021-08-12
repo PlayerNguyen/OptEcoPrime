@@ -270,7 +270,7 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     /**
-     * A database user controller (to controll a database)
+     * A database user controller (to control a database)
      *
      * @param controller a controller
      */

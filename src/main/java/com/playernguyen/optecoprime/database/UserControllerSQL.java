@@ -132,26 +132,6 @@ public class UserControllerSQL implements UserController {
     }
 
     /**
-     * Update player ignore the existence of player in database. If player are not
-     * found in database, create a new one.
-     *
-     * @param uuid    an uuid of player to update
-     * @param balance a balance to update (amount)
-     * @throws Exception an exception
-     */
-    public void updatePlayerIgnoreNull(UUID uuid, double balance) throws Exception {
-        OptEcoPlayer persistedPlayer = this.getPlayerByUUID(uuid).orElse(null);
-
-        // Whether null, initialize new player
-        if (persistedPlayer == null) {
-            addPlayer(uuid, balance);
-        }
-
-        // Start to update
-        this.updateFromUUID(uuid, balance, persistedPlayer);
-    }
-
-    /**
      * An update method from uuid
      *
      * @param uuid            an uuid of player to update
