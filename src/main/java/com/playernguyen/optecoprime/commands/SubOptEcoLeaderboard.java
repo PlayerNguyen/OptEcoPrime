@@ -59,6 +59,7 @@ public class SubOptEcoLeaderboard extends CommandSub {
                                     .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_UNEXPECTED_ERROR)
                                     .toString()
                     );
+            e.printStackTrace();
         }
 
         return CommandResult.NOTHING;

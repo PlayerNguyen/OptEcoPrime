@@ -399,7 +399,7 @@ public final class OptEcoPrime extends JavaPlugin {
         if (settingConfiguration == null) {
             this.settingConfiguration = new SettingConfiguration(this);
         } else {
-            this.settingConfiguration.getDreamYaml().saveAndLoad();
+            this.settingConfiguration.getDreamYaml().load();
         }
     }
 

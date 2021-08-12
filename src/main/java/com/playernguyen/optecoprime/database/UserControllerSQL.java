@@ -28,13 +28,17 @@ public class UserControllerSQL implements UserController {
     /**
      * A table of users database
      */
-    private final String userTableName;
+    private String userTableName;
 
     /**
      * @param plugin a plugin in order to provide some methods
      */
     public UserControllerSQL(OptEcoPrime plugin) {
         this.plugin = plugin;
+        load(plugin);
+    }
+
+    public void load(OptEcoPrime plugin) {
         this.userTableName = plugin.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                 .asString() + "_users";
     }
