@@ -36,6 +36,8 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_PAY_ONESELF_PAY("Command.Pay.OneselfPay", "&cYou cannot pay to yourself."),
     COMMAND_PAY_BALANCE_NOT_ENOUGH("Command.Pay.BalanceNotEnough", "&cYou have not have enough in your account to pay"),
 
+    COMMAND_LEADERBOARD_DESCRIPTION("Command.Leaderboard.Description", "Show the highest balance players"),
+
     COMMAND_RELOAD_DESCRIPTION("Command.Reload.Description", "Reload your configurations of OptEcoPrime"),
 
     COMMAND_RESPONSE_PLAYER_NOT_FOUND("Command.GeneralResponse.PlayerNotFound", "&cPlayer &6%target%&c not found."),

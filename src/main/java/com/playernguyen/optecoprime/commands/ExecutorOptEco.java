@@ -50,6 +50,7 @@ public class ExecutorOptEco extends CommandExecutor {
         this.getChildren().add(new SubOptEcoOf(plugin, this));
         this.getChildren().add(new SubOptEcoPay(plugin, this));
         this.getChildren().add(new SubOptEcoReload(plugin, this));
+        this.getChildren().add(new SubOptEcoLeaderboard(plugin, this));
         // For developers
         if (plugin.getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean()) {
             this.getChildren().add(new SubOptEcoPerformance(plugin, this));

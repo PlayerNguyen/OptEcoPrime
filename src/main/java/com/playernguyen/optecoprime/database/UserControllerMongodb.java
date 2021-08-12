@@ -117,4 +117,42 @@ public class UserControllerMongodb implements UserController {
         ));
     }
 
+    @Override
+    public List<OptEcoPlayer> getHighestBalancePlayers(int limit) throws Exception {
+        List<OptEcoPlayer> players = new ArrayList<>();
+
+        this.getToCollection(collection -> {
+            FindIterable<Document> element = collection
+                    .find()
+                    .sort(Filters.eq("balance", "1"))
+                    .limit(limit);
+            for (Document next : element) {
+                players.add(new OptEcoPlayerInstance(
+                        UUID.fromString(next.getString("_id")),
+                        next.getDouble("balance")
+                ));
+            }
+        });
+
+        return players;
+    }
+
+    @Override
+    public Optional<OptEcoPlayer> getHighestBalancePlayer(int offset) throws Exception {
+        List<OptEcoPlayer> players = new ArrayList<>();
+
+        this.getToCollection(collection -> {
+            FindIterable<Document> element = collection
+                    .find()
+                    .sort(Filters.eq("balance", "1"));
+            for (Document next : element) {
+                players.add(new OptEcoPlayerInstance(
+                        UUID.fromString(next.getString("_id")),
+                        next.getDouble("balance")
+                ));
+            }
+        });
+
+        return Optional.ofNullable(players.get(offset));
+    }
 }

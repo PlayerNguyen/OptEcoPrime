@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -155,4 +154,34 @@ public class UserControllerSQL implements UserController {
         }, String.format("UPDATE %s SET balance=? WHERE uuid=?", userTableName), balance, uuid.toString());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<OptEcoPlayer> getHighestBalancePlayer(int offset) throws SQLException {
+        // Fetch list initialize
+        List<OptEcoPlayer> players = new ArrayList<>();
+        // Execute a query
+        plugin.getDispatch().executeQuery(resultSet -> {
+            // Retrieves a player list
+            players.addAll(deserializePlayersResponse(resultSet));
+        }, String.format("SELECT * FROM %s ORDER BY balance DESC LIMIT 1", userTableName));
+        // Can be null
+        return Optional.ofNullable(players.get(0));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<OptEcoPlayer> getHighestBalancePlayers(int limit) throws SQLException {
+        // Fetch list initialize
+        List<OptEcoPlayer> players = new ArrayList<>();
+        // Execute a query
+        plugin.getDispatch().executeQuery(resultSet -> {
+            // Retrieves a player list and append it into
+            players.addAll(deserializePlayersResponse(resultSet));
+        }, String.format("SELECT * FROM %s ORDER BY balance DESC LIMIT %d", userTableName, limit));
+        return players;
+    }
 }

@@ -3,6 +3,8 @@ package com.playernguyen.optecoprime.database;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +27,7 @@ public interface UserController {
     /**
      * Insert new player into database by {@link OptEcoPlayer} object.
      *
-     * @param uuid an player uuid object to put into database.
+     * @param uuid    an player uuid object to put into database.
      * @param balance a balance to be added, as default
      * @throws Exception any exception when querying
      */
@@ -44,11 +46,37 @@ public interface UserController {
      * Update new persist data of player. If player are not found, throws
      * {@link NullPointerException}.
      *
-     * @param uuid a player uuid to update
+     * @param uuid    a player uuid to update
      * @param balance an amount to update
      * @throws Exception any exception when querying
-     * 
      */
     void updatePlayer(UUID uuid, double balance) throws Exception;
+
+    /**
+     * Get a player has the highest point with offset. For example,
+     * <br>
+     * <ul>
+     *     <li>Player 1 - 100</li>
+     *     <li>Player 2 - 97</li>
+     *     <li>Player 3 - 96</li>
+     * </ul>
+     *
+     * <br>
+     * If offset is 1, means take a Player 2 and ignore Player 1 or higher.
+     *
+     * @param offset an index offset to ignore higher point.
+     * @return a player who has the highest point.
+     * @throws Exception errors
+     */
+    Optional<OptEcoPlayer> getHighestBalancePlayer(int offset) throws Exception;
+
+    /**
+     * Retrieves and responses a player list that contains highest players balance.
+     *
+     * @param limit limit a response
+     * @return a highest balance player list
+     * @throws Exception errors
+     */
+    List<OptEcoPlayer> getHighestBalancePlayers(int limit) throws Exception;
 
 }
