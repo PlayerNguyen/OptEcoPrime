@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -54,9 +55,7 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
 
-        /**
-         * optecoprime_balance: return a current balance of player a balance is flexible
-         */
+        // optecoprime_balance: return a current balance of player a balance is flexible
         if (params.equalsIgnoreCase("balance")) {
             OptEcoPlayer _player;
             try {
@@ -69,12 +68,40 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
             return null;
         }
 
-        /**
-         * optecoprime_currency_symbol: return a currency symbol which configured in
-         * Setting.yml
-         */
+        // optecoprime_currency_symbol: return a currency symbol which configured in Setting.yml
         if (params.equalsIgnoreCase("currency_symbol")) {
             return plugin.getLanguageConfiguration().get(LanguageConfigurationModel.CURRENCY_SYMBOL).asString();
+        }
+        // optecoprime_leaderboard_n with n is index.
+        if (params.contains("optecoprime_leaderboard_")) {
+            String[] pieces = params.split("_");
+
+            // Index not found
+            if (pieces.length < 3) {
+                return "Index not found";
+            }
+            // Extract and receives
+            try {
+                int index = Integer.parseInt(pieces[2]);
+                Optional<OptEcoPlayer> highestBalancePlayer = plugin
+                        .getUserController()
+                        .getHighestBalancePlayer(index - 1);
+
+                // Not found player
+                if (!highestBalancePlayer.isPresent()) {
+                    return "n/a";
+                }
+
+                // Return a number
+                return new FlexibleNumber(highestBalancePlayer.get().getBalance()).toString();
+
+            } catch (Exception e) {
+                // Print stack trance
+                e.printStackTrace();
+                // Invalid index
+                return "Invalid index " + pieces[2];
+            }
+
         }
 
         return super.onRequest(player, params);
@@ -84,7 +111,7 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
      * Requests and transforms a string includes replacement placeholder by
      * {@link PlaceholderAPI#setPlaceholders(OfflinePlayer, String)}. Return data
      * whether a plugin is not registered
-     * 
+     *
      * @param player a target to set
      * @param data   a data as string to transform
      * @return a transformed text

@@ -7,6 +7,7 @@ import com.playernguyen.optecoprime.commands.core.CommandSub;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
+import com.playernguyen.optecoprime.utils.NumberUtil;
 import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -35,6 +36,7 @@ public class SubOptEcoLeaderboard extends CommandSub {
     @Override
     public CommandResult onExecute(CommandSender sender, List<String> params) {
 
+        SenderUtil.Teller senderTeller = SenderUtil.Teller.init(sender);
         try {
             List<OptEcoPlayer> highestBalancePlayers = prime.getUserController()
                     .getHighestBalancePlayers(
@@ -43,17 +45,18 @@ public class SubOptEcoLeaderboard extends CommandSub {
                                     .get(SettingConfigurationModel.LEADERBOARD_LIMIT_AMOUNT)
                                     .asInt()
                     );
+            senderTeller.next("&7#-------- Leaderboard ----------#");
             highestBalancePlayers.forEach(player -> {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
-                SenderUtil.Teller.init(sender)
-                        .next(String.format(
-                                "&7#  &c%s  %s",
-                                offlinePlayer.getName(),
-                                player.getBalance()
-                        ));
+                senderTeller.next(String.format(
+                        "&7# &c%s\t\t%s",
+                        offlinePlayer.getName(),
+                        new NumberUtil.FlexibleNumber(player.getBalance())
+                ));
             });
+
         } catch (Exception e) {
-            SenderUtil.Teller.init(sender)
+            senderTeller
                     .next(
                             prime.getLanguageConfiguration()
                                     .getWithPrefix(LanguageConfigurationModel.COMMAND_RESPONSE_UNEXPECTED_ERROR)
