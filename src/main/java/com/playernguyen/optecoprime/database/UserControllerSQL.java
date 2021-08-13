@@ -169,9 +169,9 @@ public class UserControllerSQL implements UserController {
         plugin.getDispatch().executeQuery(resultSet -> {
             // Retrieves a player list
             players.addAll(deserializePlayersResponse(resultSet));
-        }, String.format("SELECT * FROM %s ORDER BY balance DESC LIMIT 1", userTableName));
+        }, String.format("SELECT * FROM %s ORDER BY balance DESC LIMIT %d, 1", userTableName, offset));
         // Can be null
-        return Optional.ofNullable(players.get(0));
+        return Optional.ofNullable(players.size() > 0 ? players.get(0) : null);
     }
 
     /**

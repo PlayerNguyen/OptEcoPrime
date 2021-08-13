@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
  * Imports PlaceholderAPI plugin to register a plugin
  */
 public class OptEcoPlaceholder extends PlaceholderExpansion {
-    private OptEcoPrime plugin;
+    private final OptEcoPrime plugin;
 
     public OptEcoPlaceholder(OptEcoPrime plugin) {
 
@@ -73,19 +73,25 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
             return plugin.getLanguageConfiguration().get(LanguageConfigurationModel.CURRENCY_SYMBOL).asString();
         }
         // optecoprime_leaderboard_n with n is index.
-        if (params.contains("optecoprime_leaderboard_")) {
+        if (params.contains("leaderboard_")) {
             String[] pieces = params.split("_");
 
             // Index not found
-            if (pieces.length < 3) {
+            if (pieces.length < 2) {
                 return "Index not found";
             }
             // Extract and receives
             try {
-                int index = Integer.parseInt(pieces[2]);
+                int index = Integer.parseInt(pieces[1]);
+
+                // Positive value
+                if (index < 0) {
+                    return "n/a";
+                }
+
                 Optional<OptEcoPlayer> highestBalancePlayer = plugin
                         .getUserController()
-                        .getHighestBalancePlayer(index - 1);
+                        .getHighestBalancePlayer(index);
 
                 // Not found player
                 if (!highestBalancePlayer.isPresent()) {
