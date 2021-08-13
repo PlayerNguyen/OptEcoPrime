@@ -72,12 +72,13 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
         if (params.equalsIgnoreCase("currency_symbol")) {
             return plugin.getLanguageConfiguration().get(LanguageConfigurationModel.CURRENCY_SYMBOL).asString();
         }
-        // optecoprime_leaderboard_n with n is index.
+        // optecoprime_leaderboard_n_option with n is index.
+        //  and option = balance or name or uuid
         if (params.contains("leaderboard_")) {
             String[] pieces = params.split("_");
 
             // Index not found
-            if (pieces.length < 2) {
+            if (pieces.length < 3) {
                 return "Index not found";
             }
             // Extract and receives
@@ -89,6 +90,7 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
                     return "n/a";
                 }
 
+                // Find the player has highest point
                 Optional<OptEcoPlayer> highestBalancePlayer = plugin
                         .getUserController()
                         .getHighestBalancePlayer(index);
@@ -98,7 +100,18 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
                     return "n/a";
                 }
 
-                // Return a number
+                // Options switch
+                // UUID
+                if (pieces[2].equalsIgnoreCase("uuid")) {
+                    return highestBalancePlayer.get().getUniqueId().toString();
+                }
+
+                // username
+                if (pieces[2].equalsIgnoreCase("username")) {
+                    return Bukkit.getOfflinePlayer(highestBalancePlayer.get().getUniqueId()).getName();
+                }
+
+                // Return a point
                 return new FlexibleNumber(highestBalancePlayer.get().getBalance()).toString();
 
             } catch (Exception e) {
