@@ -15,7 +15,7 @@ import com.playernguyen.optecoprime.languages.LanguageConfiguration;
 import com.playernguyen.optecoprime.listeners.OptEcoPlayerListener;
 import com.playernguyen.optecoprime.loggers.ConsoleTeller;
 import com.playernguyen.optecoprime.managers.OptEcoPlayerManager;
-import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
+import com.playernguyen.optecoprime.dependencies.OptEcoPlaceholder;
 import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
@@ -192,7 +192,7 @@ public final class OptEcoPrime extends JavaPlugin {
      */
     private void setupHook() {
         this.getConsoleTeller().send("Initializing plugin-hook with other plugins");
-        // Placeholder api register
+        // PlaceHolderAPI
         if (Bukkit.getPluginManager().getPlugin(PLUGIN_PLACEHOLDER_API_NAME) != null)
             new OptEcoPlaceholder(this);
     }

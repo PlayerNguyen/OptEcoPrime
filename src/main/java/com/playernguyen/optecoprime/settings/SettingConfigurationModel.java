@@ -58,7 +58,8 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
 
     USER_PERSIST_DATA_DURATION("User.PersistDataDuration", 100,
             "A duration to check whether the player information was old or not. ",
-            "Calculate in millisecond with 1000ms = 1s");
+            "Calculate in millisecond with 1000ms = 1s"),
+    ;
 
     private final String path;
     private final Object instance;
