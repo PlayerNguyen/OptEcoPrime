@@ -1,6 +1,8 @@
 package com.playernguyen.optecoprime.utils;
 
-import com.playernguyen.optecoprime.placeholder.OptEcoPlaceholder;
+import com.playernguyen.optecoprime.OptEcoPrime;
+import com.playernguyen.optecoprime.dependencies.OptEcoPlaceholder;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -19,10 +21,12 @@ public class SenderUtil {
      * @param context a context with formatted code
      */
     public static void reveal(CommandSender target, String context) {
-        if (target instanceof Player || target instanceof OfflinePlayer) {
-            target.sendMessage(ChatColor.translateAlternateColorCodes(COLOR_CHARACTER,
-                    OptEcoPlaceholder.requestPlaceholder((OfflinePlayer) target, context)));
-            return;
+        if (Bukkit.getPluginManager().getPlugin(OptEcoPrime.PLUGIN_PLACEHOLDER_API_NAME) != null) {
+            if (target instanceof Player || target instanceof OfflinePlayer) {
+                target.sendMessage(ChatColor.translateAlternateColorCodes(COLOR_CHARACTER,
+                        OptEcoPlaceholder.requestPlaceholder((OfflinePlayer) target, context)));
+                return;
+            }
         }
         target.sendMessage(ChatColor.translateAlternateColorCodes(COLOR_CHARACTER, context));
     }
@@ -34,7 +38,7 @@ public class SenderUtil {
      * new Teller(sender).next(line1).next(line2).next(line3)...
      */
     public static class Teller {
-        private CommandSender sender;
+        private final CommandSender sender;
 
         public Teller(CommandSender sender) {
             this.sender = sender;
@@ -51,8 +55,7 @@ public class SenderUtil {
 
         /**
          * Send a message with next middleware
-         * 
-         * @param sender  a sender to send
+         *
          * @param context a context to send, as message with translated color chars
          * @return a next teller, current instance
          */

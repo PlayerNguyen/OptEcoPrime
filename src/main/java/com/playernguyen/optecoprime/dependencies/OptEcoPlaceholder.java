@@ -1,4 +1,4 @@
-package com.playernguyen.optecoprime.placeholder;
+package com.playernguyen.optecoprime.dependencies;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;

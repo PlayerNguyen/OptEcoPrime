@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.playernguyen'
-version = '1.0.0-alpha1'
+version = '1.0.0-alpha2'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -44,6 +44,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
     compile 'org.mongodb:mongodb-driver:3.6.3'
+
+    // Vault API
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 }
 
 processResources {
