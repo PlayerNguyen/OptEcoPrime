@@ -27,16 +27,13 @@ public class OptEcoUpdater {
      * Checks for new update.
      * 
      * @param onNewUpdate a callback when plugin has new update
-     * @throws Exception errors when update
      */
-    public void checkForUpdate(Consumer<String> onNewUpdate) throws Exception {
+    public void checkForUpdate(Consumer<String> onNewUpdate) {
         plugin.getExecutorService().submit(() -> {
             try {
                 URL url = new URL(UPDATE_URL);
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-
                 connection.setRequestMethod("GET");
-
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

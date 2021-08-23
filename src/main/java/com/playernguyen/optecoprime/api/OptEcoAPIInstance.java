@@ -2,7 +2,11 @@ package com.playernguyen.optecoprime.api;
 
 import com.playernguyen.optecoprime.OptEcoPrime;
 import com.playernguyen.optecoprime.exceptions.PlayerNotFoundException;
+import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
+import com.playernguyen.optecoprime.players.OptEcoPlayer;
+import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -76,5 +80,37 @@ public class OptEcoAPIInstance implements OptEcoAPI {
         this.plugin.getPlayerManager().setPlayerBalance(unique, value);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return a currency symbol which configured in Settings.yml
+     */
+    @Override
+    public String currencySymbol() {
+        return ChatColor.translateAlternateColorCodes(
+                '&',
+                this
+                        .plugin
+                        .getLanguageConfiguration()
+                        .get(LanguageConfigurationModel.CURRENCY_SYMBOL)
+                        .asString()
+        );
+    }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param uuid an unique id of that player
+     * @return a player in server; otherwise null.
+     * @throws Exception an exception of any error
+     */
+    @Override
+    public @Nullable OptEcoPlayer get(@NotNull UUID uuid) throws Exception {
+        // Return null whenever not found
+        if (!hasPlayer(uuid)) {
+            return null;
+        }
+        // Otherwise, return this player from player manager
+        return this.plugin.getPlayerManager().getPlayer(uuid);
+    }
 }

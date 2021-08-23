@@ -23,9 +23,7 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
 
         this.plugin = plugin;
         // Register this placeholder
-        if (this.register()) {
-            plugin.getConsoleTeller().send("&aSuccessfully hooking with &6PlaceholderAPI");
-        }
+        this.register();
     }
 
     /**

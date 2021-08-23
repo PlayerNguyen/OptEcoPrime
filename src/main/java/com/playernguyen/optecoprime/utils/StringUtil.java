@@ -11,9 +11,8 @@ public class StringUtil {
      */
     public static boolean isUUID(String input) {
         try {
-            UUID.fromString(input);
+            UUID uuid = UUID.fromString(input);
             return true;
-
         } catch (Exception e) {
             return false;
         }

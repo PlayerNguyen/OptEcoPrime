@@ -6,12 +6,20 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
 
     ADMINISTRATOR_LOGGING_UPDATE("Administrator.LoggingUpdate", true,
             "Logging when user balance was modified"),
+
+    CHECK_FOR_UPDATE("CheckForUpdate",
+            true,
+            "Check for new update services."
+    ),
+
     DATABASE_MONGODB_COLLECTION_USER("MongoDB.Collection.User",
             "users",
             "A name of users collection"),
+
     DATABASE_MONGODB_DATABASE("MongoDB.Database",
             "optecoprime",
             "A mongodb server database name"),
+
     DATABASE_MONGODB_URI("MongoDB.URI",
             "mongodb+srv://localhost:27017",
             "A mongodb server uri to connect to database"),
@@ -25,18 +33,23 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
 
     DATABASE_MYSQL_OPTIONS("MySQL.Options", "useSSL=false",
             "An option as url parameter to config your database connection."),
+
     DATABASE_MYSQL_PASSWORD("MySQL.Password",
             "",
             "Credential password, to connect to MySQL server"),
+
     DATABASE_MYSQL_PORT("MySQL.Port",
             "3306",
             "A port from database for OptEcoPrime to connect to database"),
+
     DATABASE_MYSQL_USERNAME("MySQL.Username",
             "root",
             "Credential username, to connect to MySQL server"),
+
     DATABASE_SQLITE_FILE_NAME("SQLite.FileName",
             "data.sqlite",
             "A SQLite file name which contains data"),
+
     DATABASE_TABLE_PREFIX("TablePrefix", "opteco",
             "Prefix name of database, i.e: prefix_users, prefix_transactions..."),
 
@@ -44,7 +57,6 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
             "sqlite",
             "A type of database system that plugin use",
             "Available: sqlite, mysql, mongodb"),
-
     DEBUG("Debug",
             false,
             "This setting section is for developers",
@@ -52,14 +64,21 @@ public enum SettingConfigurationModel implements ConfigurationSectionModel {
     LEADERBOARD_LIMIT_AMOUNT("Leaderboard.LimitAmount",
             5,
             "Limit a number of players perform in leaderboard"),
+
+    SHOPGUIPLUS_CURRENCY_POSITION("ShopGuiPlus.CurrencyPosition",
+            "prefix",
+            "A currency position when hooking implementation of ShopGUIPlus includes a currency symbol",
+            " in Language.yml.",
+            "  For example: prefix: $100, suffix: 100$ with currency ",
+            "  Available: prefix, suffix"),
+
     USER_BEGINNING_POINT("User.InceptionBalance",
             0.0,
             "A start point when new player first join the server"),
 
     USER_PERSIST_DATA_DURATION("User.PersistDataDuration", 100,
             "A duration to check whether the player information was old or not. ",
-            "Calculate in millisecond with 1000ms = 1s"),
-    ;
+            "Calculate in millisecond with 1000ms = 1s");
 
     private final String path;
     private final Object instance;

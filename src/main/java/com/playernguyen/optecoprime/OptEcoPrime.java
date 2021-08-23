@@ -11,11 +11,14 @@ import com.playernguyen.optecoprime.database.UserController;
 import com.playernguyen.optecoprime.database.UserControllerMongodb;
 import com.playernguyen.optecoprime.database.UserControllerSQL;
 import com.playernguyen.optecoprime.database.mongodb.MongoDispatch;
+import com.playernguyen.optecoprime.dependencies.OptEcoPlaceholder;
 import com.playernguyen.optecoprime.languages.LanguageConfiguration;
 import com.playernguyen.optecoprime.listeners.OptEcoPlayerListener;
 import com.playernguyen.optecoprime.loggers.ConsoleTeller;
 import com.playernguyen.optecoprime.managers.OptEcoPlayerManager;
-import com.playernguyen.optecoprime.dependencies.OptEcoPlaceholder;
+import com.playernguyen.optecoprime.provider.OptEcoPrimeBossShopProProvider;
+import com.playernguyen.optecoprime.provider.OptEcoPrimeShopGUIPlusProvider;
+import com.playernguyen.optecoprime.provider.ShopGUIPlusCurrencyPosition;
 import com.playernguyen.optecoprime.settings.SettingConfiguration;
 import com.playernguyen.optecoprime.settings.SettingConfigurationModel;
 import com.playernguyen.optecoprime.trackers.OptEcoTrackers;
@@ -36,9 +39,18 @@ import java.util.concurrent.Executors;
  */
 public final class OptEcoPrime extends JavaPlugin {
     /**
-     * A default PlaceholderAPI name to implements
+     * A default PlaceholderAPI name to implement
      */
     public static final String PLUGIN_PLACEHOLDER_API_NAME = "PlaceholderAPI";
+    /**
+     * A default ShopGUIPlus name to implement
+     */
+    public static final String PLUGIN_SHOPGUIPLUS_API_NAME = "ShopGUIPlus";
+
+    /**
+     * A default BossShopPro name to implement
+     */
+    public static final String PLUGIN_BOSSSHOPPRO_API_NAME = "BossShopPro";
     /**
      * Pool size of ExecutorService
      */
@@ -60,7 +72,7 @@ public final class OptEcoPrime extends JavaPlugin {
      */
     private OptEcoTrackers trackers;
     /**
-     * A dispatch class of database, {@link Dispatch} of dbcollective
+     * A dispatch class of database, {@link Dispatch} of db-collective
      */
     private Dispatch dispatch;
     /**
@@ -172,19 +184,23 @@ public final class OptEcoPrime extends JavaPlugin {
 
     /**
      * Check for new updated version via Github
-     *
-     * @throws Exception an exception
      */
-    private void setupUpdater() throws Exception {
+    private void setupUpdater() {
         // Not found an updater, update
         if (updater == null) {
             this.updater = new OptEcoUpdater(this);
         }
 
         // Check for update
-        updater.checkForUpdate((version) -> {
-            getConsoleTeller().send("&aNew update released: " + version);
-        });
+        if (this.getSettingConfiguration()
+                .get(SettingConfigurationModel.CHECK_FOR_UPDATE)
+                .asBoolean()) {
+            updater.checkForUpdate((version) ->
+                    getConsoleTeller().send(
+                            String.format("&aNew update released: %s", version)
+                    )
+            );
+        }
     }
 
     /**
@@ -193,8 +209,45 @@ public final class OptEcoPrime extends JavaPlugin {
     private void setupHook() {
         this.getConsoleTeller().send("Initializing plugin-hook with other plugins");
         // PlaceHolderAPI
-        if (Bukkit.getPluginManager().getPlugin(PLUGIN_PLACEHOLDER_API_NAME) != null)
-            new OptEcoPlaceholder(this);
+        if (Bukkit.getPluginManager().isPluginEnabled(PLUGIN_PLACEHOLDER_API_NAME)) {
+            // Register provider
+            OptEcoPlaceholder provider = new OptEcoPlaceholder(this);
+            // Tells console some information
+            this.getConsoleTeller().send(String.format(
+                    "Registered with PlaceholderAPI by name %s version %s",
+                    provider.getIdentifier(),
+                    provider.getVersion()
+            ));
+        }
+
+        // ShopGUIPlus provider
+        if (Bukkit.getPluginManager().isPluginEnabled(PLUGIN_SHOPGUIPLUS_API_NAME)) {
+            // Default is prefix
+            ShopGUIPlusCurrencyPosition position = ShopGUIPlusCurrencyPosition.PREFIX;
+            String rawPosition = this
+                    .getSettingConfiguration()
+                    .getString(SettingConfigurationModel.SHOPGUIPLUS_CURRENCY_POSITION);
+            // Prefix set
+            if (rawPosition.contains("suffix")) {
+                position = ShopGUIPlusCurrencyPosition.SUFFIX;
+            }
+
+            // Gets instance of provider
+            new OptEcoPrimeShopGUIPlusProvider(this, position);
+            // Tells some information
+            this.getConsoleTeller().send(String.format(
+                    "Registered with ShopGUIPlus with position %s",
+                    rawPosition
+            ));
+        }
+
+        // BossShopPro provider
+        if (Bukkit.getPluginManager().isPluginEnabled(PLUGIN_BOSSSHOPPRO_API_NAME)) {
+            new OptEcoPrimeBossShopProProvider(this);
+            this.getConsoleTeller().send(
+                    "Registered with ShopGUIPlus"
+            );
+        }
     }
 
     /**
@@ -244,9 +297,9 @@ public final class OptEcoPrime extends JavaPlugin {
         listenerList.add(new OptEcoPlayerListener(this));
 
         // Register all listeners
-        listenerList.forEach(e -> {
-            Bukkit.getPluginManager().registerEvents(e, this);
-        });
+        listenerList.forEach(e ->
+                Bukkit.getPluginManager().registerEvents(e, this)
+        );
     }
 
     /**
@@ -304,15 +357,24 @@ public final class OptEcoPrime extends JavaPlugin {
      */
     private void setupDatabase() throws ClassNotFoundException {
         this.getConsoleTeller().send("Invoking configured database type");
-        String persistDatabaseType = this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TYPE)
+        String persistDatabaseType = this
+                .getSettingConfiguration()
+                .get(SettingConfigurationModel.DATABASE_TYPE)
                 .asString();
 
         // SQLite initialize
         if (persistDatabaseType.equalsIgnoreCase("sqlite")) {
             this.getConsoleTeller().send("&6Detecting sqlite database type, loading files");
             this.dispatch = new SQLiteDispatch(
-                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME).asString());
-            this.dispatch.setVerbose(getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean());
+                    this
+                            .getSettingConfiguration()
+                            .get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME)
+                            .asString());
+            this.dispatch.setVerbose(
+                    getSettingConfiguration()
+                    .get(SettingConfigurationModel.DEBUG)
+                    .asBoolean()
+            );
             this.dispatch.setLogger(this.getLogger());
 
             // Set up tables by run async task
@@ -323,12 +385,15 @@ public final class OptEcoPrime extends JavaPlugin {
                             // Set up user table
                             dispatch.executeUpdate(updatedRow -> {
                             }, String.format(
-                                    "CREATE TABLE IF NOT EXISTS %s_users (" + "uuid varchar UNIQUE PRIMARY KEY NOT NULL"
-                                            + ",balance double NOT NULL" + ", username varchar )",
-                                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
+                                    "CREATE TABLE IF NOT EXISTS %s_users ("
+                                            + "uuid varchar UNIQUE PRIMARY KEY NOT NULL"
+                                            + ",balance double NOT NULL"
+                                            + ", username varchar )",
+                                    this.getSettingConfiguration()
+                                            .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                                             .asString()));
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }));
 
@@ -358,12 +423,15 @@ public final class OptEcoPrime extends JavaPlugin {
                             this.getConsoleTeller().send("&rInitializing database stuffs");
                             this.dispatch.executeUpdate((rows) -> {
                             }, String.format(
-                                    "CREATE TABLE IF NOT EXISTS %s_users (" + "uuid varchar(255) NOT NULL PRIMARY KEY "
-                                            + ",balance double NOT NULL" + ", username varchar(255))",
-                                    this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
+                                    "CREATE TABLE IF NOT EXISTS %s_users ("
+                                            + "uuid varchar(255) NOT NULL PRIMARY KEY "
+                                            + ", balance double NOT NULL"
+                                            + ", username varchar(255) )",
+                                    this.getSettingConfiguration()
+                                            .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                                             .asString()));
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }));
 
@@ -386,7 +454,7 @@ public final class OptEcoPrime extends JavaPlugin {
         }
 
         // Unsupported type
-        throw new IllegalStateException(String.format("cannot found database type %s", persistDatabaseType));
+        throw new IllegalStateException(String.format("Couldn't find database type %s", persistDatabaseType));
     }
 
     /**
@@ -399,7 +467,9 @@ public final class OptEcoPrime extends JavaPlugin {
         if (settingConfiguration == null) {
             this.settingConfiguration = new SettingConfiguration(this);
         } else {
-            this.settingConfiguration.getDreamYaml().load();
+            this.settingConfiguration
+                    .getDreamYaml()
+                    .load();
         }
     }
 
@@ -410,7 +480,9 @@ public final class OptEcoPrime extends JavaPlugin {
 
     private void disableDatabaseSource() {
         this.getConsoleTeller().send("Invoking configured database type");
-        String persistDatabaseType = this.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TYPE)
+        String persistDatabaseType = this
+                .getSettingConfiguration()
+                .get(SettingConfigurationModel.DATABASE_TYPE)
                 .asString();
 
         if (persistDatabaseType.equals("mysql")) {
@@ -490,7 +562,8 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     /**
-     * An application inteface instance, to interact with this plugin
+     * An application interface instance, to interact with this plugin
+     *
      * @return an OptEcoAPI class
      */
     public OptEcoAPI getApplicationInterface() {

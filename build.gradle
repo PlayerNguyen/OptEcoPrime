@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.playernguyen'
-version = '1.0.0-alpha2'
+version = '1.0.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -20,8 +20,12 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
-    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
-    maven { url 'https://jitpack.io' }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/central'
+    }
+    maven {
+        url = 'https://jitpack.io'
+    }
     maven {
         url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
@@ -33,8 +37,12 @@ dependencies {
     
     implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     implementation 'me.clip:placeholderapi:2.10.10'
+
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
     compile 'com.github.PlayerNguyen:db-collective:R1.0.2'
+
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
+    compile 'org.mongodb:mongodb-driver:3.6.3'
 
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:2.3.2'
@@ -42,11 +50,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
-    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
-    compile 'org.mongodb:mongodb-driver:3.6.3'
-
-    // Vault API
-    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    // ShopGUIPlus api
+    implementation 'com.github.brcdev-minecraft:shopgui-api:2.2.0'
+    
+    compile files('libraries/BossShopPro.jar')
 }
 
 processResources {
