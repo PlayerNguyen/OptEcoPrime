@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Get an interface, simple to use for your guys (developers).
+ * Get an interface, simple to use for developers.
  */
 public interface OptEcoAPI {
 

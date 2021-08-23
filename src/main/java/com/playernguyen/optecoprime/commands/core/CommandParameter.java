@@ -26,6 +26,8 @@ public interface CommandParameter {
     /**
      * Create new default parameter.
      *
+     * @param name    a name of parameter
+     * @param require is required or not
      * @return new instance of default parameter.
      */
     static CommandParameter newParameter(@NotNull String name,

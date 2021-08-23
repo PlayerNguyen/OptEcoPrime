@@ -46,7 +46,8 @@ public class SenderUtil {
 
         /**
          * Initialize a new teller class
-         * 
+         *
+         * @param sender a sender to get instance
          * @return new instance of this class
          */
         public static Teller init(CommandSender sender) {

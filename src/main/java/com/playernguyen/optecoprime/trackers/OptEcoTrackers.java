@@ -71,6 +71,8 @@ public class OptEcoTrackers {
      * @param callable a callable after logged or not.
      * @param <T>      a datatype of callable
      * @return an object in callable
+     * @throws ExecutionException could not execute error
+     * @throws InterruptedException thread interruption error
      */
     public <T> T describeTankerAsync(@NotNull String message, Callable<T> callable)
             throws ExecutionException, InterruptedException {
