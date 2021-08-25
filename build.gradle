@@ -45,15 +45,16 @@ dependencies {
     compile 'org.mongodb:mongodb-driver:3.6.3'
 
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-    implementation 'com.zaxxer:HikariCP:2.3.2'
+    compile 'com.zaxxer:HikariCP:4.0.3'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
     // ShopGUIPlus api
     implementation 'com.github.brcdev-minecraft:shopgui-api:2.2.0'
-    
+    // Boss Shop Pro
     implementation files('libraries/BossShopPro.jar')
+
 }
 
 processResources {
