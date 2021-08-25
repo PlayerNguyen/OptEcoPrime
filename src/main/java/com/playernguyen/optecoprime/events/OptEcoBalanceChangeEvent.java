@@ -37,7 +37,7 @@ public class OptEcoBalanceChangeEvent extends OptEcoEventAbstract {
                                     OptEcoPlayer player,
                                     double recentBalance,
                                     double currentBalance) {
-        super(plugin);
+        super(true, plugin);
         this.player = player;
         this.recentBalance = recentBalance;
         this.currentBalance = currentBalance;

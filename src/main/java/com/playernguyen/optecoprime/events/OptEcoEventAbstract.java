@@ -21,6 +21,11 @@ public abstract class OptEcoEventAbstract extends Event implements Cancellable {
         this.plugin = plugin;
     }
 
+    public OptEcoEventAbstract(boolean isAsync, OptEcoPrime plugin) {
+        super(isAsync);
+        this.plugin = plugin;
+    }
+
     private static final HandlerList handerList = new HandlerList();
 
     /**
