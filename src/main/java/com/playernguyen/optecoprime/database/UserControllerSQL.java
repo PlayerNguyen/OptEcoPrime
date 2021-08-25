@@ -39,7 +39,9 @@ public class UserControllerSQL implements UserController {
     }
 
     public void load(OptEcoPrime plugin) {
-        this.userTableName = plugin.getSettingConfiguration().get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
+        this.userTableName = plugin
+                .getSettingConfiguration()
+                .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                 .asString() + "_users";
     }
 

@@ -56,7 +56,16 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
 
     PREFERENCES_SUB_COMMAND("Preferences.SubCommand", "sub-command"),
 
-    EVENT_UPDATE_BALANCE_MESSAGE("Event.UpdateBalanceMessage", "&6Your current balance now is %amount% %currency_symbol%")
+    EVENT_UPDATE_BALANCE_MESSAGE("Event.UpdateBalanceMessage", "&6Your current balance now is %amount% %currency_symbol%"),
+
+    COMMAND_TO_PRIME_DESCRIPTION("Command.ToPrime.Description",
+            "Change a data from OptEco to OptEcoPrime"
+    ),
+
+    COMMAND_MYSQL_OR_SQLITE("Command.MySQLOrSQLite",
+            "mysql/sqlite"),
+    COMMAND_TABLE_NAME("Command.TableName",
+            "table_name")
     ;
 
     private final String path;

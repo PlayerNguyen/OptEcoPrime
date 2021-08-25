@@ -53,7 +53,7 @@ dependencies {
     // ShopGUIPlus api
     implementation 'com.github.brcdev-minecraft:shopgui-api:2.2.0'
     
-    compile files('libraries/BossShopPro.jar')
+    implementation files('libraries/BossShopPro.jar')
 }
 
 processResources {

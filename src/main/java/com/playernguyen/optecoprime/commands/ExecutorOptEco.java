@@ -54,11 +54,14 @@ public class ExecutorOptEco extends CommandExecutor {
         // For developers
         if (plugin.getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean()) {
             this.getChildren().add(new SubOptEcoPerformance(plugin, this));
+            this.getChildren().add(new SubOptEcoToPrime(plugin, this));
         }
-        // Permisisions reveal and register
+        // Permissions reveal and register
         this.getChildren().forEach(e -> {
             // Registers permissions, for some plugins like LuckPerm literally work
-            Bukkit.getPluginManager().addPermission(new Permission(e.getPermissions()));
+            if (Bukkit.getPluginManager().getPermission(e.getPermissions()) == null) {
+                Bukkit.getPluginManager().addPermission(new Permission(e.getPermissions()));
+            }
             // Reveals
             plugin.getTrackers().describeNothing(e.getName() + " -> " + e.getPermissions());
         });

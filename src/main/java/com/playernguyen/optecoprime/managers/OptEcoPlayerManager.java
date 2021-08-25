@@ -178,11 +178,8 @@ public class OptEcoPlayerManager {
      *
      * @param uuid   a unique id of that player
      * @param amount an amount to add
-     * @throws Exception             an exception when system cannot looked up
-     *                               player.
-     * @throws IllegalStateException an amount is not higher than 0
      */
-    public void addPlayerBalance(UUID uuid, double amount) throws Exception {
+    public void addPlayerBalance(UUID uuid, double amount) {
         plugin.getTrackers().describeAsync("add a balance of " + uuid, () -> {
             try {
                 OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)

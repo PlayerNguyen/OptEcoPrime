@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +165,7 @@ public final class OptEcoPrime extends JavaPlugin {
             setupConfiguration();
             setupLanguage();
             setupDatabase();
+            setupCommands();
             setupHook();
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,7 +187,7 @@ public final class OptEcoPrime extends JavaPlugin {
     /**
      * Check for new updated version via Github
      */
-    private void setupUpdater() {
+    private void setupUpdater() throws Exception {
         // Not found an updater, update
         if (updater == null) {
             this.updater = new OptEcoUpdater(this);
@@ -365,11 +367,12 @@ public final class OptEcoPrime extends JavaPlugin {
         // SQLite initialize
         if (persistDatabaseType.equalsIgnoreCase("sqlite")) {
             this.getConsoleTeller().send("&6Detecting sqlite database type, loading files");
-            this.dispatch = new SQLiteDispatch(
+            File file = new File(getDataFolder(),
                     this
-                            .getSettingConfiguration()
-                            .get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME)
-                            .asString());
+                    .getSettingConfiguration()
+                    .get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME)
+                    .asString());
+            this.dispatch = new SQLiteDispatch(file.getAbsolutePath());
             this.dispatch.setVerbose(
                     getSettingConfiguration()
                     .get(SettingConfigurationModel.DEBUG)
