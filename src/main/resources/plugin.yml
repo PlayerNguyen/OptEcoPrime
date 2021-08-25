@@ -1,7 +1,6 @@
 name: OptEcoPrime
 version: @version@
 main: com.playernguyen.optecoprime.OptEcoPrime
-api-version: 1.17
 authors: [ Player_Nguyen ]
 description: Powerful point system for Minecraft Bukkit server
 softdepend: [ PlaceholderAPI, ShopGUIPlus, BossShopPro ]
