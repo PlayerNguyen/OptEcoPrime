@@ -31,7 +31,7 @@ public class SubOptEcoToPrime extends CommandSub {
                         new CommandDefaultParameter(
                                 prime.getLanguageConfiguration()
                                         .getWithoutPrefix(LanguageConfigurationModel
-                                                .COMMAND_MYSQL_OR_SQLITE)
+                                                .COMMAND_SQLITE)
                                         .toString(),
                                 true
                         ),
@@ -56,7 +56,6 @@ public class SubOptEcoToPrime extends CommandSub {
         SenderUtil.Teller teller = SenderUtil.Teller.init(sender);
         // Command sender is invalid
         if (!(sender instanceof ConsoleCommandSender)) {
-
             teller.next("Invalid sender, must be a console sender");
             return CommandResult.NOTHING;
         }
@@ -110,13 +109,10 @@ public class SubOptEcoToPrime extends CommandSub {
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
+            return CommandResult.NOTHING;
         }
 
-        // mysql
-        if (type.contains("mysql")) {
-            teller.next("");
-        }
-
+        teller.next("Unsupported type");
         return CommandResult.NOTHING;
     }
 

@@ -62,8 +62,8 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
             "Change a data from OptEco to OptEcoPrime"
     ),
 
-    COMMAND_MYSQL_OR_SQLITE("Command.MySQLOrSQLite",
-            "mysql/sqlite"),
+    COMMAND_SQLITE("Command.SQLite",
+            "sqlite"),
     COMMAND_TABLE_NAME("Command.TableName",
             "table_name")
     ;

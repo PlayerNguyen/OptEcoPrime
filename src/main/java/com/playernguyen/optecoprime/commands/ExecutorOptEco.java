@@ -26,7 +26,10 @@ public class ExecutorOptEco extends CommandExecutor {
     private static final String EXECUTOR_GUIDELINE = "An OptEco plugin commands";
     private static final String HEADER = "&7--------- &c&lOptEcoPrime &7---------";
     private static final String PREFIX_GUIDELINE_TEXT = "&c&l/point ";
-    private final List<String> CHILDREN_NAME = this.getChildren().stream().map(CommandInterface::getName)
+    private final List<String> CHILDREN_NAME = this
+            .getChildren()
+            .stream()
+            .map(CommandInterface::getName)
             .collect(Collectors.toList());
     private final OptEcoPrime plugin;
 
@@ -52,7 +55,8 @@ public class ExecutorOptEco extends CommandExecutor {
         this.getChildren().add(new SubOptEcoReload(plugin, this));
         this.getChildren().add(new SubOptEcoLeaderboard(plugin, this));
         // For developers
-        if (plugin.getSettingConfiguration().get(SettingConfigurationModel.DEBUG).asBoolean()) {
+        if (plugin.getSettingConfiguration().get(SettingConfigurationModel.DEBUG)
+                .asBoolean()) {
             this.getChildren().add(new SubOptEcoPerformance(plugin, this));
             this.getChildren().add(new SubOptEcoToPrime(plugin, this));
         }
