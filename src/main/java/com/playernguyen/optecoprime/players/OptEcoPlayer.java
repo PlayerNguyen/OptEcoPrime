@@ -30,7 +30,7 @@ public interface OptEcoPlayer {
 
     /**
      * An expires time of this player object, to check a player
-     *  object is out-of-date or not.
+     * object is out-of-date or not.
      *
      * @return a last update long
      */

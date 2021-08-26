@@ -2,7 +2,6 @@ package com.playernguyen.optecoprime;
 
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
 import com.playernguyen.optecoprime.utils.NumberUtil.NumberFilter;
-
 import org.junit.Assert;
 import org.junit.Test;
 

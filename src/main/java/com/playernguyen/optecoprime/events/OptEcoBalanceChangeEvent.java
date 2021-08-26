@@ -28,9 +28,9 @@ public class OptEcoBalanceChangeEvent extends OptEcoEventAbstract {
      * The default constructor is defined for cleaner code. This constructor
      * assumes the event is synchronous.
      *
-     * @param plugin an OptEcoPrime plugin
-     * @param player a new player, after modified
-     * @param recentBalance old player balance before change
+     * @param plugin         an OptEcoPrime plugin
+     * @param player         a new player, after modified
+     * @param recentBalance  old player balance before change
      * @param currentBalance new player balance afterwards.
      */
     public OptEcoBalanceChangeEvent(OptEcoPrime plugin,
@@ -89,7 +89,7 @@ public class OptEcoBalanceChangeEvent extends OptEcoEventAbstract {
     /**
      * Check if after change the status is increased by compare recent
      * balance is higher than current balance.
-     *
+     * <p>
      * Invertion of {@link #isIncrease()}
      *
      * @return true if is decrease, false otherwise.

@@ -17,7 +17,7 @@ public class CommandRegistryManager {
 
     /**
      * Add new command into container
-     * 
+     *
      * @param executor an executor you want to register
      */
     public void addCommand(CommandExecutor executor) {
@@ -26,7 +26,7 @@ public class CommandRegistryManager {
 
     /**
      * Clean up anything
-     * 
+     *
      * @throws NoSuchFieldException     bukkit exception
      * @throws SecurityException        bukkit exception
      * @throws IllegalArgumentException bukkit exception
@@ -45,7 +45,7 @@ public class CommandRegistryManager {
 
     /**
      * A method that register new command.
-     * 
+     *
      * @throws NoSuchFieldException     bukkit exception
      * @throws SecurityException        bukkit exception
      * @throws IllegalArgumentException bukkit exception

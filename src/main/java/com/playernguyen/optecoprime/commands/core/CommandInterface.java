@@ -12,10 +12,10 @@ import java.util.Set;
  */
 public interface CommandInterface {
 
-    public static final String PARAMETER_REQUIRED_COLOR = "&7";
-    public static final String PARAMETER_NON_REQUIRED_COLOR = "&8";
-    public static final String GUIDELINE_COLOR = "&7";
-    public static final String COMMAND_NAME_COLOR = "&6";
+    String PARAMETER_REQUIRED_COLOR = "&7";
+    String PARAMETER_NON_REQUIRED_COLOR = "&8";
+    String GUIDELINE_COLOR = "&7";
+    String COMMAND_NAME_COLOR = "&6";
 
     /**
      * A command name, this name must be immutable and unique.
@@ -26,7 +26,7 @@ public interface CommandInterface {
 
     /**
      * Aliases list string, contains abbreviation of this command.
-     * 
+     *
      * @return abbreviation list of command
      */
     List<String> getAliases();
@@ -63,7 +63,7 @@ public interface CommandInterface {
 
     /**
      * Call when sender triggers command via types.
-     * 
+     *
      * @param sender a sender who sends this command
      * @param params parameters
      * @return command result to response.
@@ -72,7 +72,7 @@ public interface CommandInterface {
 
     /**
      * Call when sender triggers tab on command.
-     * 
+     *
      * @param sender a sender who triggers tab
      * @param params parameters
      * @return suggestion list
@@ -81,14 +81,14 @@ public interface CommandInterface {
 
     /**
      * A permission to access command.
-     * 
+     *
      * @return a permission as string
      */
     String getPermissions();
 
     /**
      * Call when sender has no permission to access to command.
-     * 
+     *
      * @param sender a sender who has no permission to access
      * @param params parameters used this command
      */
@@ -97,17 +97,17 @@ public interface CommandInterface {
     /**
      * Guideline text illustrates a current help for player to understand command as
      * string. A guideline text will be shows as follow:
-     * 
+     *
      * <pre>
      * {command_name} {command_parameters}: {command_guideline}
      * </pre>
-     * 
+     *
      * <br>
      * i.e:<br>
      * <ul>
      * <li>tp player x y z: Teleport player to another place</li>
      * </ul>
-     * 
+     *
      * @return a unformatted text of guideline.
      */
     default String toGuidelineText() {
@@ -136,7 +136,7 @@ public interface CommandInterface {
 
     /**
      * Call when the sender is not compatible with command.
-     * 
+     *
      * @param sender a sender
      * @param params params
      */

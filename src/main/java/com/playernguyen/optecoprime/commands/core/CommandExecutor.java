@@ -126,7 +126,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
     /**
      * Call when sender is invalid. This method is pre-processing code in order to
      * validate parameters.
-     * 
+     *
      * @param sender a sender triggers this command
      * @param params parameters
      */
@@ -135,7 +135,7 @@ public abstract class CommandExecutor extends BukkitCommand implements CommandIn
     /**
      * A post-processing made to response all results after call
      * {@link #onExecute(CommandSender, List)}.
-     * 
+     *
      * @param result a result after call {@link #onExecute(CommandSender, List)}
      * @param sender a sender who sent this command
      * @param args   arguments of sender

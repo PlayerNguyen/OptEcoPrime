@@ -26,7 +26,7 @@ public class ReplaceableString {
 
     /**
      * Add new replacement into reflect table.
-     * 
+     *
      * @param target a target to replace
      * @param to     a string to replace
      * @return current replaceable string instance
@@ -38,7 +38,7 @@ public class ReplaceableString {
 
     /**
      * Format a number as to parameter after replace.
-     * 
+     *
      * @param target a target to replace
      * @param to     a double to replace
      * @return current replaceable string instance

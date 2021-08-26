@@ -99,7 +99,7 @@ public class SubOptEcoPay extends CommandSub {
             if (plugin.getPlayerManager().getPlayer(_sender.getUniqueId()).getBalance() < filter.asNumber()) {
                 Teller.init(sender)
                         .next(plugin.getLanguageConfiguration()
-                        .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_BALANCE_NOT_ENOUGH).toString()); 
+                                .getWithPrefix(LanguageConfigurationModel.COMMAND_PAY_BALANCE_NOT_ENOUGH).toString());
                 return CommandResult.NOTHING;
             }
 

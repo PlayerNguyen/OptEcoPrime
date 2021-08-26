@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 /**
  * A default class to extend as command executor
- *
  */
 public class ExecutorOptEco extends CommandExecutor {
 

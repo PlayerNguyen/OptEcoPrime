@@ -369,14 +369,14 @@ public final class OptEcoPrime extends JavaPlugin {
             this.getConsoleTeller().send("&6Detecting sqlite database type, loading files");
             File file = new File(getDataFolder(),
                     this
-                    .getSettingConfiguration()
-                    .get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME)
-                    .asString());
+                            .getSettingConfiguration()
+                            .get(SettingConfigurationModel.DATABASE_SQLITE_FILE_NAME)
+                            .asString());
             this.dispatch = new SQLiteDispatch(file.getAbsolutePath());
             this.dispatch.setVerbose(
                     getSettingConfiguration()
-                    .get(SettingConfigurationModel.DEBUG)
-                    .asBoolean()
+                            .get(SettingConfigurationModel.DEBUG)
+                            .asBoolean()
             );
             this.dispatch.setLogger(this.getLogger());
 

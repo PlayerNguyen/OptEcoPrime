@@ -25,7 +25,7 @@ public class OptEcoUpdater {
 
     /**
      * Checks for new update.
-     * 
+     *
      * @param onNewUpdate a callback when plugin has new update
      */
     public void checkForUpdate(Consumer<String> onNewUpdate) {

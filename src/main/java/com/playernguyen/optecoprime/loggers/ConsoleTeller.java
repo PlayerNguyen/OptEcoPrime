@@ -9,8 +9,8 @@ import org.bukkit.plugin.Plugin;
  */
 public class ConsoleTeller {
 
-    private Teller teller = new Teller(Bukkit.getConsoleSender());
     private final String prefix;
+    private final Teller teller = new Teller(Bukkit.getConsoleSender());
 
     public ConsoleTeller(Plugin plugin) {
         this.prefix = "&7[&c" + plugin.getName() + "&7]&r ";
@@ -18,7 +18,7 @@ public class ConsoleTeller {
 
     /**
      * Sends a new message by using teller, includes a prefix (plugin name).
-     * 
+     *
      * @param message a message to send
      * @return the current class instance. For chain execute
      */

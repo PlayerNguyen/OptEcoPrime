@@ -5,7 +5,7 @@ package com.playernguyen.optecoprime.commands.core;
  */
 public enum CommandResult {
 
-    
+
     MISSING_ARGUMENTS, NOTHING
-    
+
 }

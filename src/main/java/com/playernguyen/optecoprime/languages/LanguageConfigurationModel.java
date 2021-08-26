@@ -65,8 +65,7 @@ public enum LanguageConfigurationModel implements ConfigurationSectionModel {
     COMMAND_SQLITE("Command.SQLite",
             "sqlite"),
     COMMAND_TABLE_NAME("Command.TableName",
-            "table_name")
-    ;
+            "table_name");
 
     private final String path;
     private final Object instance;

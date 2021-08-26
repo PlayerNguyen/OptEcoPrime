@@ -34,22 +34,16 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'junit:junit:4.13.1'
-    
     implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     implementation 'me.clip:placeholderapi:2.10.10'
-
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
     compile 'com.github.PlayerNguyen:db-collective:R1.0.2'
-
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
     compile 'org.mongodb:mongodb-driver:3.6.3'
-
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     compile 'com.zaxxer:HikariCP:4.0.3'
-
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
-
     // ShopGUIPlus api
     implementation 'com.github.brcdev-minecraft:shopgui-api:2.2.0'
     // Boss Shop Pro

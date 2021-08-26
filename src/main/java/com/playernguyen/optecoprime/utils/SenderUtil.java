@@ -16,7 +16,7 @@ public class SenderUtil {
 
     /**
      * Reveal a secret to command sender.
-     * 
+     *
      * @param target  a target as {@link CommandSender} to reveal
      * @param context a context with formatted code
      */

@@ -17,7 +17,7 @@ public abstract class CommandSub implements CommandInterface {
     private final Set<CommandInterface> children = new HashSet<>();
 
     public CommandSub(CommandInterface parent, String name, List<CommandParameter> parameters, String guideline,
-            List<String> aliases) {
+                      List<String> aliases) {
         this.name = name;
         this.aliases = aliases;
         this.parent = parent;

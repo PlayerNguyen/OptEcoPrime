@@ -27,6 +27,22 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
     }
 
     /**
+     * Requests and transforms a string includes replacement placeholder by
+     * {@link PlaceholderAPI#setPlaceholders(OfflinePlayer, String)}. Return data
+     * whether a plugin is not registered
+     *
+     * @param player a target to set
+     * @param data   a data as string to transform
+     * @return a transformed text
+     */
+    public static String requestPlaceholder(@NotNull OfflinePlayer player, @NotNull String data) {
+        if (Bukkit.getPluginManager().getPlugin(OptEcoPrime.PLUGIN_PLACEHOLDER_API_NAME) == null) {
+            return data;
+        }
+        return PlaceholderAPI.setPlaceholders(player, data);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -122,22 +138,6 @@ public class OptEcoPlaceholder extends PlaceholderExpansion {
         }
 
         return super.onRequest(player, params);
-    }
-
-    /**
-     * Requests and transforms a string includes replacement placeholder by
-     * {@link PlaceholderAPI#setPlaceholders(OfflinePlayer, String)}. Return data
-     * whether a plugin is not registered
-     *
-     * @param player a target to set
-     * @param data   a data as string to transform
-     * @return a transformed text
-     */
-    public static String requestPlaceholder(@NotNull OfflinePlayer player, @NotNull String data) {
-        if (Bukkit.getPluginManager().getPlugin(OptEcoPrime.PLUGIN_PLACEHOLDER_API_NAME) == null) {
-            return data;
-        }
-        return PlaceholderAPI.setPlaceholders(player, data);
     }
 
 }

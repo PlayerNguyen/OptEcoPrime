@@ -10,6 +10,18 @@ import org.jetbrains.annotations.NotNull;
 public interface CommandParameter {
 
     /**
+     * Create new default parameter.
+     *
+     * @param name    a name of parameter
+     * @param require is required or not
+     * @return new instance of default parameter.
+     */
+    static CommandParameter newParameter(@NotNull String name,
+                                         boolean require) {
+        return new CommandDefaultParameter(name, require);
+    }
+
+    /**
      * A name of current parameter.
      *
      * @return a name of current parameter.
@@ -22,17 +34,5 @@ public interface CommandParameter {
      * @return true whether required, false otherwise.
      */
     boolean isRequire();
-
-    /**
-     * Create new default parameter.
-     *
-     * @param name    a name of parameter
-     * @param require is required or not
-     * @return new instance of default parameter.
-     */
-    static CommandParameter newParameter(@NotNull String name,
-                                         boolean require) {
-        return new CommandDefaultParameter(name, require);
-    }
 
 }

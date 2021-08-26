@@ -6,6 +6,7 @@ public class StringUtil {
 
     /**
      * Test whether input value is uuid or not.
+     *
      * @param input an input value
      * @return true whether is uuid, false otherwise
      */

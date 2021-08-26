@@ -17,6 +17,7 @@ public class SettingConfiguration extends ConfigurationAbstract<SettingConfigura
 
     /**
      * Get a configuration model a value as string
+     *
      * @param model a model to get as string
      * @return a string value
      */

@@ -3,7 +3,6 @@ package com.playernguyen.optecoprime.database;
 import com.playernguyen.optecoprime.players.OptEcoPlayer;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

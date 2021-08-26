@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class OptEcoEventAbstract extends Event implements Cancellable {
 
+    private static final HandlerList handerList = new HandlerList();
     private final OptEcoPrime plugin;
     private boolean cancelled = false;
 
@@ -26,7 +27,14 @@ public abstract class OptEcoEventAbstract extends Event implements Cancellable {
         this.plugin = plugin;
     }
 
-    private static final HandlerList handerList = new HandlerList();
+    /**
+     * Compulsory method for event
+     *
+     * @return a handler list
+     */
+    public static HandlerList getHandlerList() {
+        return handerList;
+    }
 
     /**
      * Compulsory method for event
@@ -36,15 +44,6 @@ public abstract class OptEcoEventAbstract extends Event implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handerList;
-    }
-
-    /**
-     * Compulsory method for event
-     *
-     * @return a handler list
-     */
-    public static HandlerList getHandlerList() {
         return handerList;
     }
 

@@ -28,7 +28,7 @@ public class SubOptEcoTake extends CommandSub {
     public SubOptEcoTake(OptEcoPrime plugin, CommandInterface parent) {
         super(parent, COMMAND_NAME, Arrays.asList(
                 CommandParameter.newParameter(plugin.getLanguageConfiguration()
-                        .getWithoutPrefix(LanguageConfigurationModel.COMMAND_PARAMETER_PLAYER_OR_UUID).toString(),
+                                .getWithoutPrefix(LanguageConfigurationModel.COMMAND_PARAMETER_PLAYER_OR_UUID).toString(),
                         true),
                 CommandParameter.newParameter(
                         plugin.getLanguageConfiguration()

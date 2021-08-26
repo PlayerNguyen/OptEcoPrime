@@ -26,11 +26,6 @@ public class OptEcoPlayerInstance implements OptEcoPlayer {
     }
 
     @Override
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    @Override
     public UUID getUniqueId() {
         return uniqueId;
     }
@@ -38,6 +33,11 @@ public class OptEcoPlayerInstance implements OptEcoPlayer {
     @Override
     public double getBalance() {
         return balance;
+    }
+
+    @Override
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     @Override

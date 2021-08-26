@@ -16,11 +16,11 @@ public class NumberUtil {
         /**
          * A field to hold data inside.
          */
-        private String persistData;
+        private final String persistData;
 
         /**
          * A constructor with data argument.
-         * 
+         *
          * @param data a data to analyze as number.
          * @throws NumberFormatException a data is not a number.
          */
@@ -33,7 +33,7 @@ public class NumberUtil {
 
         /**
          * Convert to a double.
-         * 
+         *
          * @return a double value.
          * @throws NumberFormatException the current value is not a number.
          */
@@ -43,7 +43,7 @@ public class NumberUtil {
 
         /**
          * Check whether a current value is any type of number.
-         * 
+         *
          * @return true whether a current value is number, false otherwise.
          */
         public boolean isNumber() {
@@ -57,7 +57,7 @@ public class NumberUtil {
 
         /**
          * Check whether the number is negative or not.
-         * 
+         *
          * @return true whether the persist data is negative, false otherwise.
          */
         public boolean isNegative() {
@@ -66,7 +66,7 @@ public class NumberUtil {
 
         /**
          * Check whether the current number is zero.
-         * 
+         *
          * @return true whether a current number is zero, false otherwise
          */
         public boolean isZero() {
@@ -75,7 +75,7 @@ public class NumberUtil {
 
         /**
          * Catch whether a current value is not a number.
-         * 
+         *
          * @param consumer a consumer to handle
          * @return a current instance of NumberFilter class
          */
@@ -88,7 +88,7 @@ public class NumberUtil {
 
         /**
          * Call a consumer whenever a current value is negative.
-         * 
+         *
          * @param consumer a consumer to use
          * @return current instance of NumberFilter
          */
@@ -104,11 +104,11 @@ public class NumberUtil {
      * Contains a number and formats it when to string method is calling.
      */
     public static class FlexibleNumber {
-        private double persistNumber;
+        private final double persistNumber;
 
         /**
          * construct new flexible number
-         * 
+         *
          * @param persistNumber a number to construct
          */
         public FlexibleNumber(double persistNumber) {
@@ -117,7 +117,7 @@ public class NumberUtil {
 
         /**
          * Using DecimalFormatter to format a number
-         * 
+         *
          * @param formattedPattern a pattern to format
          * @return a formatted number
          */

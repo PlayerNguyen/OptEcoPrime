@@ -9,7 +9,6 @@ import com.playernguyen.optecoprime.languages.LanguageConfigurationModel;
 import com.playernguyen.optecoprime.utils.SenderUtil;
 import org.bukkit.command.CommandSender;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -46,7 +45,7 @@ public class SubOptEcoHelp extends CommandSub {
 
     /**
      * Send a help of OptEco command to player
-     * 
+     *
      * @param sender a sender to send
      */
     private void sendHelp(CommandSender sender) {

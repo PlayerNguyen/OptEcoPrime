@@ -23,7 +23,7 @@ public class LanguageConfiguration extends ConfigurationAbstract<LanguageConfigu
 
     /**
      * Get a current model as Replaceable string with prefix.
-     * 
+     *
      * @param model a model contains configured language.
      * @return a replaceable string object
      * @see ReplaceableString
@@ -34,7 +34,7 @@ public class LanguageConfiguration extends ConfigurationAbstract<LanguageConfigu
 
     /**
      * Get a configured item with prefix as ReplaceableString.
-     * 
+     *
      * @param model a model contains configured language
      * @return a prefixed string with replaceable string
      * @see ReplaceableString
@@ -46,7 +46,7 @@ public class LanguageConfiguration extends ConfigurationAbstract<LanguageConfigu
 
     /**
      * Send with a configured prefix .
-     * 
+     *
      * @param target  a target to send
      * @param message a message to send
      */
@@ -57,7 +57,7 @@ public class LanguageConfiguration extends ConfigurationAbstract<LanguageConfigu
 
     /**
      * Send with a configured prefix, message as model.
-     * 
+     *
      * @param target a target to send
      * @param model  a model to send as message
      */
