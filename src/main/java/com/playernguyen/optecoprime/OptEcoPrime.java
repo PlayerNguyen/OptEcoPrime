@@ -185,9 +185,9 @@ public final class OptEcoPrime extends JavaPlugin {
     }
 
     /**
-     * Check for new updated version via Github
+     * Check for new updated version via GitHub
      */
-    private void setupUpdater() throws Exception {
+    private void setupUpdater() {
         // Not found an updater, update
         if (updater == null) {
             this.updater = new OptEcoUpdater(this);

@@ -1,4 +1,4 @@
-package com.playernguyen.optecoprime;
+package com.playernguyen.optecoprime.utils;
 
 import com.playernguyen.optecoprime.utils.NumberUtil.FlexibleNumber;
 import com.playernguyen.optecoprime.utils.NumberUtil.NumberFilter;

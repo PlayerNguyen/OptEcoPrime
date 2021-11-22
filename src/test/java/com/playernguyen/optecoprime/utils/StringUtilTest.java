@@ -1,6 +1,5 @@
-package com.playernguyen.optecoprime;
+package com.playernguyen.optecoprime.utils;
 
-import com.playernguyen.optecoprime.utils.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
