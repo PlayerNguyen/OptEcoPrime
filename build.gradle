@@ -42,7 +42,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
     compile 'org.mongodb:mongodb-driver:3.12.10'
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-    compile 'com.zaxxer:HikariCP:5.0.0'
+    compile 'com.zaxxer:HikariCP:4.0.3'
 
     // ShopGUIPlus api
     implementation 'com.github.brcdev-minecraft:shopgui-api:2.2.0'
@@ -52,7 +52,7 @@ dependencies {
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     testImplementation 'com.github.seeseemelk:MockBukkit-v1.16:1.5.2'
     testCompile 'com.github.PlayerNguyen:db-collective:R1.0.2'
-    testCompile 'com.zaxxer:HikariCP:5.0.0'
+    testCompile 'com.zaxxer:HikariCP:4.0.3'
     testImplementation 'org.xerial:sqlite-jdbc:3.15.1'
 }
 
