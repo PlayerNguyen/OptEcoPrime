@@ -38,6 +38,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build --scan
       - name: Run testing with Gradle
-        run: ./gradlew test --stacetrace
+        run: ./gradlew test --stacktrace
       - name: Clean up Gradle
         run: ./gradlew clean
