@@ -17,7 +17,7 @@ public interface OptEcoPlayer {
     /**
      * Balance of player, or currency of it.
      *
-     * @return a current point that player had.
+     * @return a current point that player is having.
      */
     double getBalance();
 
