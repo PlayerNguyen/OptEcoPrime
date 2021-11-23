@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: [ 10, 12, 14 ]
+        jdk: [ 8, 9, 10, 11 ]
     env:
       # Database section of the environment
       DB_DATABASE: test_db
@@ -24,10 +24,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK {{matrix.jdk}}
+      - name: Set up JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v2
         with:
-          java-version: {{matrix.jdk}}
+          java-version: ${{ matrix.jdk }}
           distribution: 'adopt'
       - name: Setup MySQL database server
         run: |
