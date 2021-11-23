@@ -11,6 +11,7 @@ import java.io.File;
 public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel> {
 
     private final DreamYaml dreamYaml;
+    private final File configurationFile;
 
     public ConfigurationAbstract(Plugin plugin,
                                  String fileName,
@@ -29,6 +30,7 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
                 : new File(plugin.getDataFolder(), parentFolder);
         Preconditions.checkState(parent.exists() || parent.mkdir());
         File configFile = new File(parent, fileName);
+        this.configurationFile = configFile;
         // Set the dream yaml object reference to parent
         this.dreamYaml = new DreamYaml(configFile);
         this.dreamYaml.load();
@@ -69,4 +71,12 @@ public abstract class ConfigurationAbstract<T extends ConfigurationSectionModel>
                         .split("\\."));
     }
 
+    /**
+     * A configuration file object.
+     *
+     * @return a file object
+     */
+    public File getConfigurationFile() {
+        return configurationFile;
+    }
 }

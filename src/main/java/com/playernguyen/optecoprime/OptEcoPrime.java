@@ -26,7 +26,9 @@ import com.playernguyen.optecoprime.updater.OptEcoUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -481,6 +483,19 @@ public final class OptEcoPrime extends JavaPlugin {
         disableDatabaseSource();
     }
 
+    //////////// FOR MOCKBUKKIT TEST /////////
+    public OptEcoPrime() {
+        super();
+    }
+
+    protected OptEcoPrime(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
+    //////////// END FOR MOCKBUKKIT TEST /////////
+
+    /**
+     * Disable database source
+     */
     private void disableDatabaseSource() {
         this.getConsoleTeller().send("Invoking configured database type");
         String persistDatabaseType = this
