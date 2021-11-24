@@ -7,23 +7,9 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class OptEcoPrimePointsTest extends OptEcoPrimeMockTester {
-
-    @Test
-    public void containsPlayerInPlayerManager() throws ExecutionException, InterruptedException {
-        Player player = server.addPlayer("Notch");
-        Assert.assertNotNull(plugin.getPlayerManager().getPlayer(player.getUniqueId()));
-    }
-
-    @Test
-    public void shouldThrowNotNull() throws ExecutionException, InterruptedException {
-        Assert.assertThrows(NullPointerException.class,
-                () -> plugin.getPlayerManager().getPlayer(UUID.randomUUID()));
-    }
-
 
     @Test
     @Ignore("not ready yet")

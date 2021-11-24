@@ -93,7 +93,7 @@ public class UserControllerSQL implements UserController {
         // Look up a player by their uuid
         List<OptEcoPlayer> players = this.findByUUID(uuid);
         if (players.size() == 0) {
-            throw new IllegalStateException("Not found the first player");
+            return Optional.empty();
         }
         // Return first value as optional
         return Optional.of(players.get(0));
