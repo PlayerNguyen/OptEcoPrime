@@ -38,7 +38,7 @@ dependencies {
     implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     implementation 'me.clip:placeholderapi:2.10.10'
     compile 'com.github.Osiris-Team:Dream-Yaml:6.3'
-    compile 'com.github.PlayerNguyen:db-collective:R1.0.2'
+    compile 'com.github.PlayerNguyen:db-collective:R1.0.3'
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
     compile 'org.mongodb:mongodb-driver:3.12.10'
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
@@ -51,9 +51,10 @@ dependencies {
     // Native test
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     testImplementation 'com.github.seeseemelk:MockBukkit-v1.16:1.5.2'
-    testCompile 'com.github.PlayerNguyen:db-collective:R1.0.2'
+    testCompile 'com.github.PlayerNguyen:db-collective:R1.0.3'
     testCompile 'com.zaxxer:HikariCP:4.0.3'
-    testImplementation 'org.xerial:sqlite-jdbc:3.15.1'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.2'
+    testImplementation 'org.xerial:sqlite-jdbc:3.36.0.2'
 }
 
 processResources {

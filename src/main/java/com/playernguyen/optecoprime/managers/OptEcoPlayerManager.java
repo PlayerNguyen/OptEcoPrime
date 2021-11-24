@@ -153,7 +153,7 @@ public class OptEcoPlayerManager {
             try {
                 OptEcoPlayer persistedPlayer = plugin.getUserController().getPlayerByUUID(uuid)
                         .orElseThrow(NullPointerException::new);
-                // If player has not change its balance, no update
+                // If player has not changed its balance, no update
                 // Otherwise, change it and update into both storage and database
                 if (persistedPlayer.getBalance() != balance) {
                     // Update it into database
@@ -163,7 +163,6 @@ public class OptEcoPlayerManager {
                     if (player != null) {
                         this.setBalance(uuid, balance);
                     }
-                    return;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -186,7 +185,7 @@ public class OptEcoPlayerManager {
                         .orElse(new OptEcoPlayerInstance(uuid, plugin.getSettingConfiguration()
                                 .get(SettingConfigurationModel.USER_BEGINNING_POINT).asDouble()));
 
-                // If player has not change its balance, no update
+                // If player has not changed its balance, no update
                 // Otherwise, change it and update into both storage and database
                 if (amount > 0) {
                     // Update it into database
@@ -196,6 +195,7 @@ public class OptEcoPlayerManager {
                     if (player != null) {
                         this.setBalance(uuid, persistedPlayer.getBalance() + amount);
                     }
+                    System.out.println("player = " + player);
                     return;
                 }
                 // Not match to the criteria, should handle in front of class (request class)

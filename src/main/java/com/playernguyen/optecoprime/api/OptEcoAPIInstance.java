@@ -32,7 +32,7 @@ public class OptEcoAPIInstance implements OptEcoAPI {
     /**
      * {@inheritDoc}
      *
-     * @param unique an unique id of that player
+     * @param unique a unique id of that player
      * @param value  a value to take
      * @throws java.sql.SQLException   sql errors
      * @throws PlayerNotFoundException player not found error
@@ -49,7 +49,7 @@ public class OptEcoAPIInstance implements OptEcoAPI {
     /**
      * {@inheritDoc}
      *
-     * @param unique an unique id of that player
+     * @param unique a unique id of that player
      * @param value  a value to add
      * @throws java.sql.SQLException   sql errors
      * @throws PlayerNotFoundException player not found error
@@ -66,7 +66,7 @@ public class OptEcoAPIInstance implements OptEcoAPI {
     /**
      * {@inheritDoc}
      *
-     * @param unique an unique id of that player
+     * @param unique a unique id of that player
      * @param value  a value to set
      * @throws java.sql.SQLException   sql errors
      * @throws PlayerNotFoundException player not found error
@@ -100,9 +100,9 @@ public class OptEcoAPIInstance implements OptEcoAPI {
     /**
      * {@inheritDoc}
      *
-     * @param uuid an unique id of that player
+     * @param uuid a unique id of that player
      * @return a player in server; otherwise null.
-     * @throws Exception an exception of any error
+     * @throws Exception an exception to any error
      */
     @Override
     public @Nullable OptEcoPlayer get(@NotNull UUID uuid) throws Exception {
