@@ -21,20 +21,6 @@ public class OptEcoPrimeSQLiteTest extends OptEcoPrimeMockTester {
      */
     @Test
     public void containsUserTableSQLite() throws SQLException {
-//        plugin.getDispatch().preparedStatement((statement) -> {
-//                    ResultSet resultSet = statement.executeQuery();
-//                    while (resultSet.next()) {
-//                        Assert.assertEquals(resultSet.getString(1), String.format(
-//                                "%s_users",
-//                                plugin.getSettingConfiguration()
-//                                        .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
-//                                        .asString()
-//                        ));
-//                    }
-//                }, "SELECT name FROM sqlite_master WHERE type='table' AND name=?;",
-//                String.format("%s_users", plugin.getSettingConfiguration()
-//                        .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
-//                        .asString()));
         String userTableName = String.format("%s_users", plugin.getSettingConfiguration()
                 .get(SettingConfigurationModel.DATABASE_TABLE_PREFIX)
                 .asString());
